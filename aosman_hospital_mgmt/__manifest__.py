@@ -1,6 +1,6 @@
 {
     'name': 'Hospital Management System',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.0.1',
     'category': 'Healthcare',
     'summary': 'Manage patients, appointments, billing and hospital operations',
     'description': """
@@ -54,6 +54,10 @@ Key Features
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
-    'images': ['static/description/banner.svg'],
+    'images': [
+        'static/description/thumbnail.png',
+        'static/description/icon.png',
+        'static/description/banner.svg',
+    ],
     'post_init_hook': '_refresh_menu_icon',
 }

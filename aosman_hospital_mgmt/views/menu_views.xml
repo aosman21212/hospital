@@ -5,36 +5,36 @@
     <menuitem id="menu_hospital_root"
               name="Hospital"
               sequence="50"
-              web_icon="hospital_management,static/description/icon.png"
-              groups="hospital_management.group_hospital_readonly,hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+              web_icon="aosman_hospital_mgmt,static/description/icon.png"
+              groups="aosman_hospital_mgmt.group_hospital_readonly,aosman_hospital_mgmt.group_hospital_user,aosman_hospital_mgmt.group_hospital_manager"/>
 
     <!-- PATIENTS -->
     <menuitem id="menu_hospital_patients_root"
               name="Patients"
               parent="menu_hospital_root"
               sequence="10"
-              groups="hospital_management.group_hospital_readonly,hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+              groups="aosman_hospital_mgmt.group_hospital_readonly,aosman_hospital_mgmt.group_hospital_user,aosman_hospital_mgmt.group_hospital_manager"/>
 
     <menuitem id="menu_hospital_patient_list"
               name="All Patients"
               parent="menu_hospital_patients_root"
               action="action_hospital_patient"
               sequence="10"
-              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+              groups="aosman_hospital_mgmt.group_hospital_user,aosman_hospital_mgmt.group_hospital_manager"/>
 
     <menuitem id="menu_hospital_patient_readonly"
               name="Patients (View Only)"
               parent="menu_hospital_patients_root"
               action="action_hospital_patient_readonly"
               sequence="20"
-              groups="hospital_management.group_hospital_readonly"/>
+              groups="aosman_hospital_mgmt.group_hospital_readonly"/>
 
     <!-- APPOINTMENTS -->
     <menuitem id="menu_hospital_appointments_root"
               name="Appointments"
               parent="menu_hospital_root"
               sequence="20"
-              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+              groups="aosman_hospital_mgmt.group_hospital_user,aosman_hospital_mgmt.group_hospital_manager"/>
 
     <menuitem id="menu_hospital_appointment_list"
               name="All Appointments"
@@ -47,7 +47,7 @@
               name="Doctors"
               parent="menu_hospital_root"
               sequence="15"
-              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+              groups="aosman_hospital_mgmt.group_hospital_user,aosman_hospital_mgmt.group_hospital_manager"/>
 
     <menuitem id="menu_hospital_doctor_list"
               name="All Doctors"
@@ -60,7 +60,7 @@
               name="Nursing"
               parent="menu_hospital_root"
               sequence="35"
-              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+              groups="aosman_hospital_mgmt.group_hospital_user,aosman_hospital_mgmt.group_hospital_manager"/>
 
     <menuitem id="menu_hospital_nurse_list"
               name="Nurses"
@@ -79,7 +79,7 @@
               name="Lab Tests"
               parent="menu_hospital_root"
               sequence="30"
-              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+              groups="aosman_hospital_mgmt.group_hospital_user,aosman_hospital_mgmt.group_hospital_manager"/>
 
     <menuitem id="menu_hospital_lab_test_list"
               name="All Lab Tests"
@@ -92,7 +92,7 @@
               name="Pharmacy"
               parent="menu_hospital_root"
               sequence="40"
-              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+              groups="aosman_hospital_mgmt.group_hospital_user,aosman_hospital_mgmt.group_hospital_manager"/>
 
     <menuitem id="menu_hospital_prescription_list"
               name="Prescriptions"
@@ -105,7 +105,7 @@
               name="Reports"
               parent="menu_hospital_root"
               sequence="80"
-              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+              groups="aosman_hospital_mgmt.group_hospital_user,aosman_hospital_mgmt.group_hospital_manager"/>
 
     <menuitem id="menu_appointment_analytics"
               name="Appointment Analytics"
@@ -142,7 +142,7 @@
               name="Configuration"
               parent="menu_hospital_root"
               sequence="90"
-              groups="hospital_management.group_hospital_manager"/>
+              groups="aosman_hospital_mgmt.group_hospital_manager"/>
 
     <menuitem id="menu_hospital_patient_tags"
               name="Patient Tags"

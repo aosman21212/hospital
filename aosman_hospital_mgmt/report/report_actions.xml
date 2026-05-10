@@ -6,8 +6,8 @@
         <field name="name">Appointment Sheet</field>
         <field name="model">hospital.appointment</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">hospital_management.report_hospital_appointment_document</field>
-        <field name="report_file">hospital_management.report_hospital_appointment_document</field>
+        <field name="report_name">aosman_hospital_mgmt.report_hospital_appointment_document</field>
+        <field name="report_file">aosman_hospital_mgmt.report_hospital_appointment_document</field>
         <field name="binding_model_id" ref="model_hospital_appointment"/>
         <field name="binding_type">report</field>
         <field name="paperformat_id" ref="base.paperformat_euro"/>
@@ -18,8 +18,8 @@
         <field name="name">Patient Card</field>
         <field name="model">hospital.patient</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">hospital_management.report_hospital_patient_card</field>
-        <field name="report_file">hospital_management.report_hospital_patient_card</field>
+        <field name="report_name">aosman_hospital_mgmt.report_hospital_patient_card</field>
+        <field name="report_file">aosman_hospital_mgmt.report_hospital_patient_card</field>
         <field name="binding_model_id" ref="model_hospital_patient"/>
         <field name="binding_type">report</field>
         <field name="paperformat_id" ref="base.paperformat_euro"/>
