@@ -31,14 +31,14 @@
         <field name="name">Hospital Patient: Manager sees all</field>
         <field name="model_id" ref="model_hospital_patient"/>
         <field name="domain_force">[(1, '=', 1)]</field>
-        <field name="groups" eval="[(4, ref('hospital_management.group_hospital_manager'))]"/>
+        <field name="groups" eval="[(4, ref('aosman_hospital_mgmt.group_hospital_manager'))]"/>
     </record>
 
     <record id="rule_hospital_appointment_manager_all" model="ir.rule">
         <field name="name">Hospital Appointment: Manager sees all</field>
         <field name="model_id" ref="model_hospital_appointment"/>
         <field name="domain_force">[(1, '=', 1)]</field>
-        <field name="groups" eval="[(4, ref('hospital_management.group_hospital_manager'))]"/>
+        <field name="groups" eval="[(4, ref('aosman_hospital_mgmt.group_hospital_manager'))]"/>
     </record>
 
 </data>
