@@ -28,8 +28,10 @@ Key Features
 - **Mail & Activities** — Built-in chatter, followers and activity scheduling
   on patients and appointments.
     """,
-    'author': 'abdzoro89',
-    'website': 'https://apps.odoo.com',
+    'author': 'Abdulkrim Osman (+966562984106, +966553368212)',
+    'website': 'https://leapai.ai/en/',
+    'support': 'abdzoro89@gmail.com',
+    'maintainer': 'a.osman@bab.com.sa',
     'depends': ['base', 'mail', 'account', 'product'],
     'data': [
         'security/res_groups.xml',
