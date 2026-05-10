@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="900" height="520">
+  <defs>
+    <linearGradient id="hdr4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a5276"/>
+      <stop offset="100%" stop-color="#1f618d"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Window chrome -->
+  <rect width="900" height="520" rx="10" fill="#f0f0f0"/>
+  <rect width="900" height="42" rx="10" fill="#2c3e50"/>
+  <rect y="32" width="900" height="10" fill="#2c3e50"/>
+  <circle cx="20" cy="21" r="7" fill="#e74c3c"/>
+  <circle cx="42" cy="21" r="7" fill="#f39c12"/>
+  <circle cx="64" cy="21" r="7" fill="#2ecc71"/>
+  <text x="450" y="26" font-family="Arial" font-size="13" fill="#aaa" text-anchor="middle">Odoo 19 — Appointment</text>
+
+  <!-- Nav -->
+  <rect y="42" width="900" height="48" fill="url(#hdr4)"/>
+  <text x="24" y="72" font-family="Arial" font-size="15" font-weight="bold" fill="#fff">🏥 Hospital</text>
+  <text x="185" y="72" font-family="Arial" font-size="14" font-weight="bold" fill="#ffffff" text-decoration="underline">Appointments</text>
+
+  <!-- Header -->
+  <rect y="90" width="900" height="46" fill="#ffffff"/>
+  <text x="24" y="116" font-family="Arial" font-size="13" fill="#6c757d">Appointments  /  </text>
+  <text x="138" y="116" font-family="Arial" font-size="13" fill="#1a5276">HA/2026/0001</text>
+
+  <!-- Status bar -->
+  <rect y="136" width="900" height="42" fill="#1a5276"/>
+  <rect x="24" y="149" width="90" height="22" rx="4" fill="#0d6efd"/>
+  <text x="69" y="164" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Start →</text>
+  <rect x="124" y="149" width="96" height="22" rx="4" fill="#198754"/>
+  <text x="172" y="164" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Mark Done ✓</text>
+  <rect x="230" y="149" width="116" height="22" rx="4" fill="#ffc107"/>
+  <text x="288" y="164" font-family="Arial" font-size="12" fill="#212529" text-anchor="middle">Create Invoice</text>
+  <!-- Stage pills -->
+  <text x="560" y="159" font-family="Arial" font-size="11" fill="#adb5bd" text-anchor="middle">Draft</text>
+  <line x1="586" y1="155" x2="606" y2="155" stroke="#adb5bd" stroke-width="1"/>
+  <text x="650" y="159" font-family="Arial" font-size="11" fill="#fff" font-weight="bold" text-anchor="middle">Confirmed</text>
+  <line x1="696" y1="155" x2="716" y2="155" stroke="#adb5bd" stroke-width="1"/>
+  <text x="760" y="159" font-family="Arial" font-size="11" fill="#adb5bd" text-anchor="middle">In Progress</text>
+  <line x1="806" y1="155" x2="826" y2="155" stroke="#adb5bd" stroke-width="1"/>
+  <text x="860" y="159" font-family="Arial" font-size="11" fill="#adb5bd" text-anchor="middle">Done</text>
+  <line x1="618" y1="168" x2="682" y2="168" stroke="#fff" stroke-width="2"/>
+
+  <!-- Form body -->
+  <rect y="178" width="900" height="342" fill="#ffffff"/>
+
+  <!-- Smart buttons -->
+  <rect x="24" y="190" width="78" height="52" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  <text x="63" y="212" font-family="Arial" font-size="20" text-anchor="middle">🧪</text>
+  <text x="63" y="228" font-family="Arial" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="bold">2</text>
+  <text x="63" y="239" font-family="Arial" font-size="10" fill="#6c757d" text-anchor="middle">Lab Tests</text>
+
+  <rect x="110" y="190" width="78" height="52" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  <text x="149" y="212" font-family="Arial" font-size="20" text-anchor="middle">💊</text>
+  <text x="149" y="228" font-family="Arial" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="bold">1</text>
+  <text x="149" y="239" font-family="Arial" font-size="10" fill="#6c757d" text-anchor="middle">Prescriptions</text>
+
+  <rect x="196" y="190" width="78" height="52" rx="6" fill="#fff8e1" stroke="#ffc107" stroke-width="1"/>
+  <text x="235" y="212" font-family="Arial" font-size="20" text-anchor="middle">🧾</text>
+  <text x="235" y="228" font-family="Arial" font-size="11" fill="#856404" text-anchor="middle" font-weight="bold">1</text>
+  <text x="235" y="239" font-family="Arial" font-size="10" fill="#6c757d" text-anchor="middle">Invoice</text>
+
+  <!-- Reference -->
+  <text x="310" y="212" font-family="Arial" font-size="9" fill="#6c757d">APPOINTMENT REF</text>
+  <text x="310" y="232" font-family="Arial" font-size="22" font-weight="bold" fill="#212529">HA/2026/0001</text>
+
+  <!-- Left group -->
+  <text x="24" y="268" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">APPOINTMENT DETAILS</text>
+  <line x1="24" y1="273" x2="430" y2="273" stroke="#dee2e6" stroke-width="1"/>
+  <text x="24"  y="293" font-family="Arial" font-size="12" fill="#6c757d">Patient</text>
+  <text x="160" y="293" font-family="Arial" font-size="13" fill="#1a5276">Ahmed Hassan</text>
+  <text x="24"  y="313" font-family="Arial" font-size="12" fill="#6c757d">Doctor</text>
+  <text x="160" y="313" font-family="Arial" font-size="13" fill="#212529">Dr. Mohammed Ali</text>
+  <text x="24"  y="333" font-family="Arial" font-size="12" fill="#6c757d">Date &amp; Time</text>
+  <text x="160" y="333" font-family="Arial" font-size="13" fill="#212529">05/08/2026 10:00</text>
+  <!-- Priority stars -->
+  <text x="24"  y="353" font-family="Arial" font-size="12" fill="#6c757d">Priority</text>
+  <text x="160" y="353" font-family="Arial" font-size="16" fill="#ffc107">★★★</text>
+  <text x="208" y="353" font-family="Arial" font-size="16" fill="#dee2e6">★★</text>
+
+  <!-- Right group -->
+  <text x="460" y="268" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">FINANCIALS</text>
+  <line x1="460" y1="273" x2="876" y2="273" stroke="#dee2e6" stroke-width="1"/>
+  <text x="460" y="293" font-family="Arial" font-size="12" fill="#6c757d">Currency</text>
+  <text x="620" y="293" font-family="Arial" font-size="13" fill="#212529">SAR</text>
+  <text x="460" y="313" font-family="Arial" font-size="12" fill="#6c757d">Total Amount</text>
+  <text x="620" y="313" font-family="Arial" font-size="13" font-weight="bold" fill="#212529">850.00</text>
+  <text x="460" y="333" font-family="Arial" font-size="12" fill="#6c757d">Invoice</text>
+  <text x="620" y="333" font-family="Arial" font-size="13" fill="#1a5276">INV/2026/0012</text>
+  <text x="460" y="353" font-family="Arial" font-size="12" fill="#6c757d">Payment</text>
+  <rect x="620" y="341" width="44" height="18" rx="9" fill="#198754"/>
+  <text x="642" y="353" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle">Paid</text>
+
+  <!-- Tab -->
+  <rect x="24" y="370" width="900" height="32" fill="#f8f9fa"/>
+  <rect x="24" y="370" width="146" height="32" fill="#ffffff"/>
+  <line x1="24" y1="402" x2="170" y2="402" stroke="#1a5276" stroke-width="2"/>
+  <text x="97" y="391" font-family="Arial" font-size="13" font-weight="bold" fill="#1a5276" text-anchor="middle">Services / Medicines</text>
+  <text x="260" y="391" font-family="Arial" font-size="13" fill="#6c757d" text-anchor="middle">Notes</text>
+
+  <!-- Services table header -->
+  <rect x="24" y="402" width="852" height="28" fill="#f1f3f4"/>
+  <text x="110" y="420" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Product / Service</text>
+  <text x="350" y="420" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Description</text>
+  <text x="560" y="420" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Qty</text>
+  <text x="620" y="420" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Unit Price</text>
+  <text x="730" y="420" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Subtotal</text>
+  <line x1="24" y1="430" x2="876" y2="430" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <rect x="24" y="430" width="852" height="34" fill="#ffffff"/>
+  <text x="110" y="451" font-family="Arial" font-size="12" fill="#1a5276">Consultation Fee</text>
+  <text x="350" y="451" font-family="Arial" font-size="12" fill="#6c757d">General consultation</text>
+  <text x="560" y="451" font-family="Arial" font-size="12" fill="#212529">1.00</text>
+  <text x="620" y="451" font-family="Arial" font-size="12" fill="#212529">500.00</text>
+  <text x="730" y="451" font-family="Arial" font-size="12" font-weight="bold" fill="#212529">500.00</text>
+  <line x1="24" y1="464" x2="876" y2="464" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- Row 2 -->
+  <rect x="24" y="464" width="852" height="34" fill="#f8f9fa"/>
+  <text x="110" y="485" font-family="Arial" font-size="12" fill="#1a5276">Blood Test — CBC</text>
+  <text x="350" y="485" font-family="Arial" font-size="12" fill="#6c757d">Complete blood count</text>
+  <text x="560" y="485" font-family="Arial" font-size="12" fill="#212529">1.00</text>
+  <text x="620" y="485" font-family="Arial" font-size="12" fill="#212529">350.00</text>
+  <text x="730" y="485" font-family="Arial" font-size="12" font-weight="bold" fill="#212529">350.00</text>
+  <line x1="24" y1="498" x2="876" y2="498" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- Total row -->
+  <rect x="660" y="498" width="216" height="22" fill="#e9ecef"/>
+  <text x="730" y="513" font-family="Arial" font-size="13" font-weight="bold" fill="#212529">TOTAL</text>
+  <text x="830" y="513" font-family="Arial" font-size="13" font-weight="bold" fill="#1a5276" text-anchor="middle">850.00 SAR</text>
+</svg>

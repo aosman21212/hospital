@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+
+    <record id="seq_hospital_patient" model="ir.sequence">
+        <field name="name">Hospital Patient</field>
+        <field name="code">hospital.patient</field>
+        <field name="prefix">HP/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_hospital_appointment" model="ir.sequence">
+        <field name="name">Hospital Appointment</field>
+        <field name="code">hospital.appointment</field>
+        <field name="prefix">HA/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_hospital_lab_test" model="ir.sequence">
+        <field name="name">Hospital Lab Test</field>
+        <field name="code">hospital.lab.test</field>
+        <field name="prefix">LT/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_hospital_prescription" model="ir.sequence">
+        <field name="name">Hospital Prescription</field>
+        <field name="code">hospital.prescription</field>
+        <field name="prefix">RX/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_hospital_doctor" model="ir.sequence">
+        <field name="name">Hospital Doctor</field>
+        <field name="code">hospital.doctor</field>
+        <field name="prefix">DR/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="seq_hospital_nurse" model="ir.sequence">
+        <field name="name">Hospital Nurse</field>
+        <field name="code">hospital.nurse</field>
+        <field name="prefix">NR/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</data>
+</odoo>

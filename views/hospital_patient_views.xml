@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── List view ─────────────────────────────────────────────────────── -->
+    <record id="view_hospital_patient_list" model="ir.ui.view">
+        <field name="name">hospital.patient.list</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <list string="Patients"
+                  decoration-success="state == 'active'"
+                  decoration-muted="state == 'discharged'"
+                  decoration-info="state == 'draft'">
+                <field name="photo" widget="image" optional="show"
+                       options="{'size': [32, 32]}"/>
+                <field name="ref" string="Ref."/>
+                <field name="name"/>
+                <field name="gender" optional="show"/>
+                <field name="dob" optional="show"/>
+                <field name="blood_group" optional="show"/>
+                <field name="phone"/>
+                <field name="email" optional="show"/>
+                <field name="tag_ids" widget="many2many_tags"
+                       options="{'color_field': 'color'}" optional="show"/>
+                <field name="appointment_count" string="Appts."
+                       optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-warning="state == 'draft'"
+                       decoration-muted="state == 'discharged'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ── Form view (full) ───────────────────────────────────────────────── -->
+    <record id="view_hospital_patient_form" model="ir.ui.view">
+        <field name="name">hospital.patient.form</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient">
+                <header>
+                    <button name="action_activate"
+                            string="Activate"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'draft'"/>
+                    <button name="action_discharge"
+                            string="Discharge"
+                            type="object"
+                            class="btn-warning"
+                            invisible="state != 'active'"/>
+                    <button name="action_reset_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            invisible="state != 'discharged'"/>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,active,discharged"/>
+                </header>
+                <sheet>
+                    <!-- Smart buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_appointments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-calendar">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="appointment_count"/>
+                                </span>
+                                <span class="o_stat_text">Appointments</span>
+                            </div>
+                        </button>
+                        <button name="action_view_lab_tests"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-flask">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="lab_test_count"/>
+                                </span>
+                                <span class="o_stat_text">Lab Tests</span>
+                            </div>
+                        </button>
+                        <button name="action_view_prescriptions"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-medkit">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="prescription_count"/>
+                                </span>
+                                <span class="o_stat_text">Prescriptions</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Photo + Title -->
+                    <field name="photo" widget="image"
+                           class="oe_avatar"
+                           options="{'preview_image': 'photo'}"/>
+                    <div class="oe_title">
+                        <label for="ref" class="text-muted small"/>
+                        <div><field name="ref" readonly="1" class="text-muted"/></div>
+                        <h1>
+                            <field name="name" placeholder="Patient full name…"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Patient Information">
+                            <field name="partner_id"
+                                   options="{'no_create': False}"
+                                   help="Link to an existing Contact for invoicing."/>
+                            <field name="dob"/>
+                            <field name="age" readonly="1"/>
+                            <field name="gender"/>
+                            <field name="blood_group"/>
+                        </group>
+                        <group string="Contact">
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="tag_ids"
+                               widget="many2many_tags"
+                               options="{'color_field': 'color', 'no_create_edit': False}"
+                               nolabel="1"
+                               placeholder="Add tags…"/>
+                    </group>
+
+                    <notebook>
+
+                        <!-- Medical History tab -->
+                        <page string="Medical History" name="medical_history">
+                            <group>
+                                <group string="Conditions &amp; Medications">
+                                    <field name="allergies"
+                                           placeholder="e.g. Penicillin, Latex"/>
+                                    <field name="chronic_conditions"
+                                           placeholder="e.g. Diabetes, Hypertension"/>
+                                    <field name="current_medications" nolabel="1"
+                                           placeholder="List current medications…"
+                                           colspan="2"/>
+                                    <field name="past_surgeries" nolabel="1"
+                                           placeholder="Past surgeries and procedures…"
+                                           colspan="2"/>
+                                    <field name="family_history" nolabel="1"
+                                           placeholder="Relevant family medical history…"
+                                           colspan="2"/>
+                                </group>
+                                <group string="Emergency Contact">
+                                    <field name="emergency_contact"/>
+                                    <field name="emergency_phone"/>
+                                    <field name="emergency_relation"/>
+                                </group>
+                            </group>
+                            <group string="Full Medical History">
+                                <field name="medical_history" nolabel="1"/>
+                            </group>
+                        </page>
+
+                        <!-- Appointments tab -->
+                        <page string="Appointments" name="appointments">
+                            <field name="appointment_ids" readonly="1">
+                                <list string="Appointments" decoration-success="state == 'done'"
+                                      decoration-warning="state == 'confirmed'"
+                                      decoration-muted="state == 'cancelled'">
+                                    <field name="name"/>
+                                    <field name="appointment_date"/>
+                                    <field name="doctor_id"/>
+                                    <field name="amount_total" string="Total"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'done'"
+                                           decoration-info="state == 'in_progress'"
+                                           decoration-warning="state == 'confirmed'"
+                                           decoration-muted="state == 'cancelled'"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- Internal Notes tab -->
+                        <page string="Internal Notes" name="notes">
+                            <field name="note" nolabel="1"
+                                   placeholder="Add internal notes here…"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Read-only form view (for group_hospital_readonly) ─────────────── -->
+    <record id="view_hospital_patient_form_readonly" model="ir.ui.view">
+        <field name="name">hospital.patient.form.readonly</field>
+        <field name="model">hospital.patient</field>
+        <field name="priority">25</field>
+        <field name="arch" type="xml">
+            <form string="Patient (Read Only)" create="false" edit="false" delete="false">
+                <header>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,active,discharged"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_appointments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-calendar">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="appointment_count"/>
+                                </span>
+                                <span class="o_stat_text">Appointments</span>
+                            </div>
+                        </button>
+                    </div>
+                    <field name="photo" widget="image" class="oe_avatar"
+                           options="{'preview_image': 'photo'}" readonly="1"/>
+                    <div class="oe_title">
+                        <div><field name="ref" readonly="1" class="text-muted"/></div>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Patient Information">
+                            <field name="partner_id" readonly="1"/>
+                            <field name="dob" readonly="1"/>
+                            <field name="age" readonly="1"/>
+                            <field name="gender" readonly="1"/>
+                            <field name="blood_group" readonly="1"/>
+                        </group>
+                        <group string="Contact">
+                            <field name="phone" readonly="1"/>
+                            <field name="email" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="tag_ids" widget="many2many_tags"
+                               options="{'color_field': 'color'}"
+                               nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Kanban view ────────────────────────────────────────────────────── -->
+    <record id="view_hospital_patient_kanban" model="ir.ui.view">
+        <field name="name">hospital.patient.kanban</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state"
+                    class="o_kanban_small_column"
+                    quick_create="false">
+                <field name="name"/>
+                <field name="ref"/>
+                <field name="photo"/>
+                <field name="gender"/>
+                <field name="blood_group"/>
+                <field name="tag_ids"/>
+                <field name="state"/>
+                <field name="appointment_count"/>
+                <templates>
+                    <t t-name="card">
+                        <aside>
+                            <field name="photo" widget="image"
+                                   class="o_image_40_cover"/>
+                        </aside>
+                        <main>
+                            <field name="name" class="fw-bold"/>
+                            <div class="text-muted small">
+                                <field name="ref"/>
+                                <span invisible="not gender"> · </span>
+                                <field name="gender"/>
+                                <span invisible="not blood_group"> · </span>
+                                <field name="blood_group"/>
+                            </div>
+                            <field name="tag_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color'}"/>
+                        </main>
+                        <footer>
+                            <span class="text-muted small">
+                                <i class="fa fa-calendar me-1"/>
+                                <field name="appointment_count"/>
+                                appt(s)
+                            </span>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'active'"
+                                   decoration-warning="state == 'draft'"
+                                   decoration-muted="state == 'discharged'"
+                                   class="ms-auto"/>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ── Search view ────────────────────────────────────────────────────── -->
+    <record id="view_hospital_patient_search" model="ir.ui.view">
+        <field name="name">hospital.patient.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search string="Search Patients">
+                <field name="name" string="Patient"
+                       filter_domain="['|', ('name', 'ilike', self), ('ref', 'ilike', self)]"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="partner_id"/>
+                <field name="tag_ids"/>
+
+                <separator/>
+                <filter name="active"     string="Active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="draft"      string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="discharged" string="Discharged"
+                        domain="[('state', '=', 'discharged')]"/>
+
+                <separator/>
+                <filter name="my_patients" string="My Patients"
+                        domain="[('partner_id.user_ids', 'in', [uid])]"/>
+
+                <group>
+                    <filter name="group_state"       string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_gender"      string="Gender"
+                            context="{'group_by': 'gender'}"/>
+                    <filter name="group_blood_group" string="Blood Group"
+                            context="{'group_by': 'blood_group'}"/>
+                    <filter name="group_company"     string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ── Actions ───────────────────────────────────────────────────────── -->
+
+    <!-- Full access (users & managers) -->
+    <record id="action_hospital_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_hospital_patient_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Register your first patient</p>
+            <p>
+                Create a patient record, attach medical details and
+                schedule appointments from here.
+            </p>
+        </field>
+    </record>
+
+    <!-- Read-only access (group_hospital_readonly) -->
+    <record id="action_hospital_patient_readonly" model="ir.actions.act_window">
+        <field name="name">Patients (Read Only)</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_hospital_patient_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode': 'list',  'view_id': ref('view_hospital_patient_list')}),
+            (0, 0, {'view_mode': 'form',  'view_id': ref('view_hospital_patient_form_readonly')}),
+        ]"/>
+    </record>
+
+</odoo>

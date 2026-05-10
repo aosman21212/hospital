@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ROOT APPLICATION MENU -->
+    <menuitem id="menu_hospital_root"
+              name="Hospital"
+              sequence="50"
+              web_icon="hospital_management,static/description/icon.png"
+              groups="hospital_management.group_hospital_readonly,hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+
+    <!-- PATIENTS -->
+    <menuitem id="menu_hospital_patients_root"
+              name="Patients"
+              parent="menu_hospital_root"
+              sequence="10"
+              groups="hospital_management.group_hospital_readonly,hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+
+    <menuitem id="menu_hospital_patient_list"
+              name="All Patients"
+              parent="menu_hospital_patients_root"
+              action="action_hospital_patient"
+              sequence="10"
+              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+
+    <menuitem id="menu_hospital_patient_readonly"
+              name="Patients (View Only)"
+              parent="menu_hospital_patients_root"
+              action="action_hospital_patient_readonly"
+              sequence="20"
+              groups="hospital_management.group_hospital_readonly"/>
+
+    <!-- APPOINTMENTS -->
+    <menuitem id="menu_hospital_appointments_root"
+              name="Appointments"
+              parent="menu_hospital_root"
+              sequence="20"
+              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+
+    <menuitem id="menu_hospital_appointment_list"
+              name="All Appointments"
+              parent="menu_hospital_appointments_root"
+              action="action_hospital_appointment"
+              sequence="10"/>
+
+    <!-- DOCTORS -->
+    <menuitem id="menu_hospital_doctors_root"
+              name="Doctors"
+              parent="menu_hospital_root"
+              sequence="15"
+              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+
+    <menuitem id="menu_hospital_doctor_list"
+              name="All Doctors"
+              parent="menu_hospital_doctors_root"
+              action="action_hospital_doctor"
+              sequence="10"/>
+
+    <!-- NURSES -->
+    <menuitem id="menu_hospital_nurses_root"
+              name="Nursing"
+              parent="menu_hospital_root"
+              sequence="35"
+              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+
+    <menuitem id="menu_hospital_nurse_list"
+              name="Nurses"
+              parent="menu_hospital_nurses_root"
+              action="action_hospital_nurse"
+              sequence="10"/>
+
+    <menuitem id="menu_nurse_assignment_list"
+              name="Shift Assignments"
+              parent="menu_hospital_nurses_root"
+              action="action_nurse_assignment"
+              sequence="20"/>
+
+    <!-- LAB TESTS -->
+    <menuitem id="menu_hospital_lab_root"
+              name="Lab Tests"
+              parent="menu_hospital_root"
+              sequence="30"
+              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+
+    <menuitem id="menu_hospital_lab_test_list"
+              name="All Lab Tests"
+              parent="menu_hospital_lab_root"
+              action="action_lab_test"
+              sequence="10"/>
+
+    <!-- PHARMACY -->
+    <menuitem id="menu_hospital_pharmacy_root"
+              name="Pharmacy"
+              parent="menu_hospital_root"
+              sequence="40"
+              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+
+    <menuitem id="menu_hospital_prescription_list"
+              name="Prescriptions"
+              parent="menu_hospital_pharmacy_root"
+              action="action_prescription"
+              sequence="10"/>
+
+    <!-- REPORTS & ANALYTICS -->
+    <menuitem id="menu_hospital_analytics_root"
+              name="Reports"
+              parent="menu_hospital_root"
+              sequence="80"
+              groups="hospital_management.group_hospital_user,hospital_management.group_hospital_manager"/>
+
+    <menuitem id="menu_appointment_analytics"
+              name="Appointment Analytics"
+              parent="menu_hospital_analytics_root"
+              action="action_appointment_analytics"
+              sequence="10"/>
+
+    <menuitem id="menu_doctor_workload"
+              name="Doctor Workload"
+              parent="menu_hospital_analytics_root"
+              action="action_doctor_workload"
+              sequence="20"/>
+
+    <menuitem id="menu_patient_analytics"
+              name="Patient Flow"
+              parent="menu_hospital_analytics_root"
+              action="action_patient_analytics"
+              sequence="30"/>
+
+    <menuitem id="menu_lab_analytics"
+              name="Lab Test Analytics"
+              parent="menu_hospital_analytics_root"
+              action="action_lab_analytics"
+              sequence="40"/>
+
+    <menuitem id="menu_nurse_shift_analytics"
+              name="Nurse Shifts"
+              parent="menu_hospital_analytics_root"
+              action="action_nurse_shift_analytics"
+              sequence="50"/>
+
+    <!-- CONFIGURATION (Manager only) -->
+    <menuitem id="menu_hospital_configuration"
+              name="Configuration"
+              parent="menu_hospital_root"
+              sequence="90"
+              groups="hospital_management.group_hospital_manager"/>
+
+    <menuitem id="menu_hospital_patient_tags"
+              name="Patient Tags"
+              parent="menu_hospital_configuration"
+              action="action_hospital_patient_tag"
+              sequence="10"/>
+
+    <menuitem id="menu_hospital_lab_test_types"
+              name="Lab Test Types"
+              parent="menu_hospital_configuration"
+              action="action_lab_test_type"
+              sequence="20"/>
+
+    <menuitem id="menu_hospital_wards"
+              name="Wards"
+              parent="menu_hospital_configuration"
+              action="action_hospital_ward"
+              sequence="30"/>
+
+</odoo>

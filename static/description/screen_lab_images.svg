@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="900" height="520">
+  <defs>
+    <linearGradient id="hdr2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a5276"/>
+      <stop offset="100%" stop-color="#1f618d"/>
+    </linearGradient>
+    <linearGradient id="xray" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+    <radialGradient id="bone" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#d8e4f0" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#8faec8" stop-opacity="0.5"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Window chrome -->
+  <rect width="900" height="520" rx="10" fill="#f0f0f0"/>
+  <rect width="900" height="42" rx="10" fill="#2c3e50"/>
+  <rect y="32" width="900" height="10" fill="#2c3e50"/>
+  <circle cx="20" cy="21" r="7" fill="#e74c3c"/>
+  <circle cx="42" cy="21" r="7" fill="#f39c12"/>
+  <circle cx="64" cy="21" r="7" fill="#2ecc71"/>
+  <text x="450" y="26" font-family="Arial" font-size="13" fill="#aaa" text-anchor="middle">Odoo 19 — Lab Test Images &amp; Scans</text>
+
+  <!-- Nav -->
+  <rect y="42" width="900" height="48" fill="url(#hdr2)"/>
+  <text x="24" y="72" font-family="Arial" font-size="15" font-weight="bold" fill="#fff">🏥 Hospital</text>
+  <text x="295" y="72" font-family="Arial" font-size="14" font-weight="bold" fill="#ffffff" text-decoration="underline">Lab Tests</text>
+
+  <!-- Breadcrumb -->
+  <rect y="90" width="900" height="40" fill="#ffffff"/>
+  <text x="24" y="115" font-family="Arial" font-size="13" fill="#6c757d">Lab Tests  /  LT/2026/0005  /  </text>
+  <text x="215" y="115" font-family="Arial" font-size="13" font-weight="bold" fill="#1a5276">Images &amp; Scans</text>
+
+  <!-- Tab bar -->
+  <rect y="130" width="900" height="36" fill="#f8f9fa"/>
+  <text x="64"  y="153" font-family="Arial" font-size="13" fill="#6c757d" text-anchor="middle">Results</text>
+  <rect x="115" y="130" width="132" height="36" fill="#ffffff"/>
+  <line x1="115" y1="166" x2="247" y2="166" stroke="#1a5276" stroke-width="2"/>
+  <text x="181" y="153" font-family="Arial" font-size="13" font-weight="bold" fill="#1a5276" text-anchor="middle">Images &amp; Scans</text>
+  <text x="310" y="153" font-family="Arial" font-size="13" fill="#6c757d" text-anchor="middle">Notes</text>
+
+  <!-- Main area -->
+  <rect y="166" width="900" height="354" fill="#ffffff"/>
+
+  <!-- PRIMARY IMAGE section label -->
+  <text x="24" y="192" font-family="Arial" font-size="12" fill="#6c757d">📷  Primary Result Image</text>
+
+  <!-- X-Ray mockup - large display -->
+  <rect x="24" y="200" width="340" height="240" rx="6" fill="url(#xray)" stroke="#333" stroke-width="1"/>
+  <!-- Chest xray silhouette -->
+  <ellipse cx="194" cy="260" rx="110" ry="140" fill="#1e3a5f" opacity="0.6"/>
+  <!-- Ribs -->
+  <path d="M100 220 Q150 210 194 218 Q238 210 288 220" fill="none" stroke="#8faec8" stroke-width="1.5" opacity="0.7"/>
+  <path d="M94 238 Q150 226 194 234 Q238 226 294 238" fill="none" stroke="#8faec8" stroke-width="1.5" opacity="0.7"/>
+  <path d="M90 256 Q150 244 194 252 Q238 244 298 256" fill="none" stroke="#8faec8" stroke-width="1.5" opacity="0.7"/>
+  <path d="M88 274 Q150 262 194 270 Q238 262 300 274" fill="none" stroke="#8faec8" stroke-width="1.5" opacity="0.7"/>
+  <path d="M88 292 Q150 280 194 288 Q238 280 300 292" fill="none" stroke="#8faec8" stroke-width="1.5" opacity="0.7"/>
+  <!-- Spine -->
+  <rect x="188" y="175" width="12" height="210" rx="3" fill="#8faec8" opacity="0.5"/>
+  <!-- Lungs -->
+  <ellipse cx="155" cy="275" rx="45" ry="65" fill="#2d5f8a" opacity="0.4"/>
+  <ellipse cx="233" cy="275" rx="45" ry="65" fill="#2d5f8a" opacity="0.4"/>
+  <!-- Heart -->
+  <ellipse cx="184" cy="285" rx="28" ry="34" fill="#1a4060" opacity="0.7"/>
+  <!-- X-ray label -->
+  <text x="194" y="430" font-family="Courier New" font-size="10" fill="#7fbfff" text-anchor="middle" opacity="0.8">CHEST AP   05/08/2026   ID:0003</text>
+
+  <!-- Filename -->
+  <text x="24" y="455" font-family="Arial" font-size="11" fill="#6c757d">chest_xray_AP_20260508.jpg</text>
+
+  <!-- ADDITIONAL IMAGES section -->
+  <text x="390" y="192" font-family="Arial" font-size="12" fill="#6c757d">📋  Additional Images</text>
+
+  <!-- Image list table -->
+  <rect x="390" y="200" width="486" height="30" rx="0" fill="#f1f3f4"/>
+  <text x="430" y="219" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Image</text>
+  <text x="530" y="219" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Name</text>
+  <text x="720" y="219" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Note</text>
+  <line x1="390" y1="230" x2="876" y2="230" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- Image row 1 -->
+  <rect x="390" y="230" width="486" height="54" fill="#ffffff"/>
+  <rect x="400" y="235" width="52" height="42" rx="3" fill="#1a1a2e" stroke="#555" stroke-width="1"/>
+  <ellipse cx="426" cy="256" rx="20" ry="16" fill="#2d5f8a" opacity="0.7"/>
+  <text x="530" y="255" font-family="Arial" font-size="12" fill="#212529">Lateral View</text>
+  <text x="530" y="270" font-family="Arial" font-size="11" fill="#6c757d">chest_lateral.jpg</text>
+  <text x="720" y="260" font-family="Arial" font-size="11" fill="#6c757d">Right lateral</text>
+  <line x1="390" y1="284" x2="876" y2="284" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- Image row 2 -->
+  <rect x="390" y="284" width="486" height="54" fill="#f8f9fa"/>
+  <rect x="400" y="289" width="52" height="42" rx="3" fill="#0d1b2a" stroke="#555" stroke-width="1"/>
+  <!-- CT scan mockup thumbnail -->
+  <circle cx="426" cy="310" r="18" fill="#1e4060" stroke="#4a90d9" stroke-width="1"/>
+  <circle cx="426" cy="310" r="10" fill="#2d6090" opacity="0.6"/>
+  <text x="530" y="309" font-family="Arial" font-size="12" fill="#212529">CT Scan Axial</text>
+  <text x="530" y="324" font-family="Arial" font-size="11" fill="#6c757d">ct_axial_slice14.jpg</text>
+  <text x="720" y="315" font-family="Arial" font-size="11" fill="#6c757d">Slice 14/28</text>
+  <line x1="390" y1="338" x2="876" y2="338" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- Image row 3 -->
+  <rect x="390" y="338" width="486" height="54" fill="#ffffff"/>
+  <rect x="400" y="343" width="52" height="42" rx="3" fill="#101820" stroke="#555" stroke-width="1"/>
+  <text x="426" y="369" font-family="Arial" font-size="8" fill="#7fbfff" text-anchor="middle">ECG</text>
+  <polyline points="404,362 410,362 413,350 416,374 419,345 422,374 426,362 450,362" fill="none" stroke="#52be80" stroke-width="1.2"/>
+  <text x="530" y="363" font-family="Arial" font-size="12" fill="#212529">ECG Trace</text>
+  <text x="530" y="378" font-family="Arial" font-size="11" fill="#6c757d">ecg_20260508.png</text>
+  <text x="720" y="370" font-family="Arial" font-size="11" fill="#6c757d">12-lead ECG</text>
+  <line x1="390" y1="392" x2="876" y2="392" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- Add row button -->
+  <text x="400" y="415" font-family="Arial" font-size="12" fill="#1a5276">+ Add a line</text>
+
+  <!-- Gallery thumbnails section -->
+  <text x="24" y="478" font-family="Arial" font-size="12" fill="#6c757d">🖼  Gallery</text>
+
+  <!-- Thumbnail strip -->
+  <rect x="24"  y="488" width="72" height="56" rx="4" fill="#1a1a2e" stroke="#4a90d9" stroke-width="2"/>
+  <ellipse cx="60" cy="516" rx="28" ry="22" fill="#2d5f8a" opacity="0.7"/>
+
+  <rect x="106" y="488" width="72" height="56" rx="4" fill="#0d1b2a" stroke="#dee2e6" stroke-width="1"/>
+  <circle cx="142" cy="516" r="22" fill="#1e4060" stroke="#4a90d9" stroke-width="1"/>
+
+  <rect x="188" y="488" width="72" height="56" rx="4" fill="#101820" stroke="#dee2e6" stroke-width="1"/>
+  <polyline points="194,516 200,516 204,504 208,528 212,499 216,528 220,516 258,516" fill="none" stroke="#52be80" stroke-width="1.5"/>
+</svg>

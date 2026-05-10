@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── Module category ────────────────────────────────────────────────── -->
+    <record id="module_category_hospital" model="ir.module.category">
+        <field name="name">Hospital Management</field>
+        <field name="description">Manage hospital patients, appointments and billing.</field>
+        <field name="sequence">200</field>
+    </record>
+
+    <!-- ── Privilege (Odoo 19: res.groups links via privilege_id) ─────────── -->
+    <record id="privilege_hospital_role" model="res.groups.privilege">
+        <field name="name">Hospital Management</field>
+        <field name="category_id" ref="module_category_hospital"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <!-- ── Read-Only group ────────────────────────────────────────────────── -->
+    <record id="group_hospital_readonly" model="res.groups">
+        <field name="name">Read Only</field>
+        <field name="privilege_id" ref="privilege_hospital_role"/>
+        <field name="comment">Can view patients and appointments but cannot modify them.</field>
+    </record>
+
+    <!-- ── User (implies Read-Only) ───────────────────────────────────────── -->
+    <record id="group_hospital_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="privilege_id" ref="privilege_hospital_role"/>
+        <field name="implied_ids" eval="[(4, ref('group_hospital_readonly'))]"/>
+        <field name="comment">Can create and manage patients, appointments and generate invoices.</field>
+    </record>
+
+    <!-- ── Manager (implies User) ─────────────────────────────────────────── -->
+    <record id="group_hospital_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="privilege_id" ref="privilege_hospital_role"/>
+        <field name="implied_ids" eval="[(4, ref('group_hospital_user'))]"/>
+        <field name="comment">Full access including configuration (tags, sequences).</field>
+        <field name="user_ids" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+</odoo>

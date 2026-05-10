@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         PRESCRIPTIONS
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <!-- ── List ──────────────────────────────────────────────────────────── -->
+    <record id="view_prescription_list" model="ir.ui.view">
+        <field name="name">hospital.prescription.list</field>
+        <field name="model">hospital.prescription</field>
+        <field name="arch" type="xml">
+            <list string="Prescriptions"
+                  decoration-success="state == 'dispensed'"
+                  decoration-info="state == 'confirmed'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="prescription_date"/>
+                <field name="valid_until" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'dispensed'"
+                       decoration-info="state == 'confirmed'"
+                       decoration-warning="state == 'draft'"
+                       decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ── Form ──────────────────────────────────────────────────────────── -->
+    <record id="view_prescription_form" model="ir.ui.view">
+        <field name="name">hospital.prescription.form</field>
+        <field name="model">hospital.prescription</field>
+        <field name="arch" type="xml">
+            <form string="Prescription">
+                <header>
+                    <button name="action_confirm"
+                            string="Confirm"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_dispense"
+                            string="Mark Dispensed"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            invisible="state in ['dispensed','cancelled']"
+                            confirm="Cancel this prescription?"/>
+                    <button name="action_reset_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,confirmed,dispensed"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="text-muted small"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+
+                    <group>
+                        <group string="Prescription Details">
+                            <field name="patient_id"/>
+                            <field name="appointment_id"
+                                   domain="[('patient_id','=',patient_id)]"/>
+                            <field name="doctor_id"/>
+                        </group>
+                        <group string="Dates">
+                            <field name="prescription_date"/>
+                            <field name="valid_until"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+
+                        <!-- ── Medicines tab ────────────────────────────── -->
+                        <page string="Medicines" name="medicines">
+                            <field name="line_ids">
+                                <list string="Medicines" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="dosage"/>
+                                    <field name="route"/>
+                                    <field name="frequency"/>
+                                    <field name="duration" optional="show"/>
+                                    <field name="instructions" optional="show"/>
+                                    <field name="qty"/>
+                                    <field name="price_unit"/>
+                                    <field name="subtotal" readonly="1"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <!-- ── Notes tab ────────────────────────────────── -->
+                        <page string="Notes" name="notes">
+                            <group>
+                                <group string="Patient Instructions">
+                                    <field name="notes" nolabel="1"
+                                           placeholder="Instructions for the patient…"/>
+                                </group>
+                                <group string="Pharmacist Notes">
+                                    <field name="pharmacist_note" nolabel="1"
+                                           placeholder="Notes for the pharmacist…"/>
+                                </group>
+                            </group>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Kanban ─────────────────────────────────────────────────────────── -->
+    <record id="view_prescription_kanban" model="ir.ui.view">
+        <field name="name">hospital.prescription.kanban</field>
+        <field name="model">hospital.prescription</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" quick_create="false">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="state"/>
+                <field name="prescription_date"/>
+                <templates>
+                    <t t-name="card">
+                        <main>
+                            <div class="fw-bold">
+                                <field name="patient_id"/>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fa fa-user-md me-1"/>
+                                <field name="doctor_id"/>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fa fa-calendar me-1"/>
+                                <field name="prescription_date"/>
+                            </div>
+                        </main>
+                        <footer>
+                            <span class="text-muted small"><field name="name"/></span>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ── Search ─────────────────────────────────────────────────────────── -->
+    <record id="view_prescription_search" model="ir.ui.view">
+        <field name="name">hospital.prescription.search</field>
+        <field name="model">hospital.prescription</field>
+        <field name="arch" type="xml">
+            <search string="Search Prescriptions">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+
+                <separator/>
+                <filter name="draft"     string="Draft"
+                        domain="[('state','=','draft')]"/>
+                <filter name="confirmed" string="Confirmed"
+                        domain="[('state','=','confirmed')]"/>
+                <filter name="dispensed" string="Dispensed"
+                        domain="[('state','=','dispensed')]"/>
+
+                <group>
+                    <filter name="group_state"   string="Status"
+                            context="{'group_by':'state'}"/>
+                    <filter name="group_doctor"  string="Doctor"
+                            context="{'group_by':'doctor_id'}"/>
+                    <filter name="group_patient" string="Patient"
+                            context="{'group_by':'patient_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ── Action ─────────────────────────────────────────────────────────── -->
+    <record id="action_prescription" model="ir.actions.act_window">
+        <field name="name">Prescriptions</field>
+        <field name="res_model">hospital.prescription</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_prescription_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first prescription</p>
+            <p>
+                Issue prescriptions with medicines, dosage instructions and frequencies.
+                Track from draft to confirmed and dispensed.
+            </p>
+        </field>
+    </record>
+
+</odoo>

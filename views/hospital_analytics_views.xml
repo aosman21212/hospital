@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         APPOINTMENT ANALYTICS — Graph + Pivot
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <!-- Graph: appointments by status -->
+    <record id="view_appointment_graph" model="ir.ui.view">
+        <field name="name">hospital.appointment.graph</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <graph string="Appointments" type="bar" stacked="1">
+                <field name="appointment_date" interval="month" type="row"/>
+                <field name="state" type="col"/>
+                <field name="amount_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot: appointments summary -->
+    <record id="view_appointment_pivot" model="ir.ui.view">
+        <field name="name">hospital.appointment.pivot</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <pivot string="Appointments">
+                <field name="appointment_date" interval="month" type="row"/>
+                <field name="state" type="col"/>
+                <field name="amount_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Action: appointments analytics -->
+    <record id="action_appointment_analytics" model="ir.actions.act_window">
+        <field name="name">Appointment Analytics</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="context">{'search_default_group_state': 1}</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         DOCTOR WORKLOAD — Graph
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <record id="view_appointment_doctor_graph" model="ir.ui.view">
+        <field name="name">hospital.appointment.doctor.graph</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <graph string="Doctor Workload" type="bar">
+                <field name="doctor_profile_id" type="row"/>
+                <field name="state" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_doctor_workload" model="ir.actions.act_window">
+        <field name="name">Doctor Workload</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="views">
+            [(ref('view_appointment_doctor_graph'),'graph'),
+             (ref('view_appointment_pivot'),'pivot'),
+             (False,'list')]
+        </field>
+        <field name="context">{'search_default_group_doctor': 1}</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         LAB TEST ANALYTICS — Graph
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <record id="view_lab_test_graph" model="ir.ui.view">
+        <field name="name">hospital.lab.test.graph</field>
+        <field name="model">hospital.lab.test</field>
+        <field name="arch" type="xml">
+            <graph string="Lab Tests" type="pie">
+                <field name="state" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_lab_test_pivot" model="ir.ui.view">
+        <field name="name">hospital.lab.test.pivot</field>
+        <field name="model">hospital.lab.test</field>
+        <field name="arch" type="xml">
+            <pivot string="Lab Tests">
+                <field name="request_date" interval="month" type="row"/>
+                <field name="category" type="col"/>
+                <field name="result_status" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_lab_analytics" model="ir.actions.act_window">
+        <field name="name">Lab Test Analytics</field>
+        <field name="res_model">hospital.lab.test</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="views">
+            [(ref('view_lab_test_graph'),'graph'),
+             (ref('view_lab_test_pivot'),'pivot'),
+             (False,'list')]
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         PATIENT FLOW — Graph
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <record id="view_patient_graph" model="ir.ui.view">
+        <field name="name">hospital.patient.graph</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <graph string="Patient Flow" type="bar">
+                <field name="state" type="row"/>
+                <field name="gender" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_patient_pivot" model="ir.ui.view">
+        <field name="name">hospital.patient.pivot</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <pivot string="Patients">
+                <field name="state" type="row"/>
+                <field name="gender" type="col"/>
+                <field name="blood_group" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_patient_analytics" model="ir.actions.act_window">
+        <field name="name">Patient Flow</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="views">
+            [(ref('view_patient_graph'),'graph'),
+             (ref('view_patient_pivot'),'pivot'),
+             (False,'list')]
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         NURSE SHIFT ANALYTICS — Graph
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <record id="view_nurse_assignment_graph" model="ir.ui.view">
+        <field name="name">hospital.nurse.assignment.graph</field>
+        <field name="model">hospital.nurse.assignment</field>
+        <field name="arch" type="xml">
+            <graph string="Nurse Shifts" type="bar">
+                <field name="ward_id" type="row"/>
+                <field name="shift" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_nurse_shift_analytics" model="ir.actions.act_window">
+        <field name="name">Nurse Shift Analytics</field>
+        <field name="res_model">hospital.nurse.assignment</field>
+        <field name="view_mode">graph,list</field>
+        <field name="views">
+            [(ref('view_nurse_assignment_graph'),'graph'),
+             (False,'list')]
+        </field>
+    </record>
+
+</odoo>

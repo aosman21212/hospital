@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 340" width="1024" height="340">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#0d2137"/>
+      <stop offset="55%"  stop-color="#1a5276"/>
+      <stop offset="100%" stop-color="#2980b9"/>
+    </linearGradient>
+    <linearGradient id="cardBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="340" fill="url(#bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="950" cy="50"  r="160" fill="#FFFFFF" fill-opacity="0.03"/>
+  <circle cx="990" cy="320" r="200" fill="#FFFFFF" fill-opacity="0.025"/>
+  <circle cx="60"  cy="290" r="120" fill="#FFFFFF" fill-opacity="0.025"/>
+
+  <!-- Logo block -->
+  <rect x="44" y="76" width="108" height="108" rx="20" fill="url(#cardBg)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.15"/>
+  <!-- Cross shield -->
+  <rect x="65" y="88"  width="64" height="70" rx="10" fill="#c0392b"/>
+  <rect x="82" y="96"  width="20" height="54" rx="5"  fill="#ffffff"/>
+  <rect x="70" y="108" width="44" height="20" rx="5"  fill="#ffffff"/>
+  <!-- Heartbeat line -->
+  <polyline points="48,162 58,162 63,152 69,172 75,143 81,172 87,162 148,162"
+            fill="none" stroke="#52be80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+
+  <!-- Title -->
+  <text x="170" y="126" font-family="Arial,sans-serif" font-size="46" font-weight="bold" fill="#ffffff" letter-spacing="-1">Hospital Management</text>
+  <text x="170" y="158" font-family="Arial,sans-serif" font-size="19" fill="#93c6e8">Complete healthcare solution for Odoo 19</text>
+
+  <!-- Feature pills -->
+  <rect x="170" y="174" width="110" height="24" rx="12" fill="#ffffff" fill-opacity="0.12"/>
+  <text x="225" y="190" font-family="Arial,sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Patients</text>
+  <rect x="290" y="174" width="130" height="24" rx="12" fill="#ffffff" fill-opacity="0.12"/>
+  <text x="355" y="190" font-family="Arial,sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Appointments</text>
+  <rect x="430" y="174" width="110" height="24" rx="12" fill="#ffffff" fill-opacity="0.12"/>
+  <text x="485" y="190" font-family="Arial,sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Lab Tests</text>
+  <rect x="550" y="174" width="110" height="24" rx="12" fill="#ffffff" fill-opacity="0.12"/>
+  <text x="605" y="190" font-family="Arial,sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Pharmacy</text>
+  <rect x="670" y="174" width="96" height="24" rx="12" fill="#ffffff" fill-opacity="0.12"/>
+  <text x="718" y="190" font-family="Arial,sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">Billing</text>
+
+  <!-- Feature bullets -->
+  <text x="172" y="228" font-family="Arial,sans-serif" font-size="14.5" fill="#b8d4f8">&#x2714;  Patient records with photos, blood group, tags and smart sequences</text>
+  <text x="172" y="254" font-family="Arial,sans-serif" font-size="14.5" fill="#b8d4f8">&#x2714;  Lab images gallery (X-rays, CT, ECG) · Prescriptions with dosage &amp; route</text>
+  <text x="172" y="280" font-family="Arial,sans-serif" font-size="14.5" fill="#b8d4f8">&#x2714;  Invoice generation · PDF reports · Role-based access · Multi-company</text>
+
+  <!-- Bottom line -->
+  <rect x="44" y="308" width="936" height="2" rx="1" fill="#ffffff" fill-opacity="0.07"/>
+
+  <!-- Version badge -->
+  <rect x="938" y="14" width="72" height="26" rx="8" fill="#1a7a4a" opacity="0.9"/>
+  <text x="974" y="31" font-family="Arial,sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="bold">v 1.0</text>
+
+  <!-- Odoo 19 badge -->
+  <rect x="938" y="46" width="72" height="26" rx="8" fill="#714b67" opacity="0.85"/>
+  <text x="974" y="63" font-family="Arial,sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="bold">Odoo 19</text>
+</svg>

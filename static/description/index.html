@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hospital Management System — Odoo 19</title>
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #212529;
+      background: #ffffff;
+      line-height: 1.6;
+    }
+    a { color: #1a5276; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Hero banner ─────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #1a3a5c 0%, #1a5276 50%, #2980b9 100%);
+      color: #fff;
+      padding: 56px 40px 52px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -60px; top: -60px;
+      width: 360px; height: 360px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: 80px; bottom: -80px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+    }
+    .hero-logo {
+      flex-shrink: 0;
+      width: 110px; height: 110px;
+      background: rgba(255,255,255,0.10);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .hero-logo img { width: 88px; height: 88px; }
+    .hero-text h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .hero-text .subtitle {
+      font-size: 1.05rem;
+      color: #b8d4f8;
+      margin-bottom: 18px;
+    }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .badge-white  { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+    .badge-green  { background: #198754; color: #fff; }
+    .badge-red    { background: #dc3545; color: #fff; }
+    .badge-orange { background: #fd7e14; color: #fff; }
+
+    /* ── Layout wrappers ─────────────────────────────────────── */
+    .container { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 52px 0; }
+    .section + .section { border-top: 1px solid #e9ecef; }
+    .section-title {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      font-size: 1rem;
+      color: #6c757d;
+      margin-bottom: 32px;
+    }
+
+    /* ── Feature grid ────────────────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      border: 1px solid #e9ecef;
+      border-radius: 10px;
+      padding: 22px 20px;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .feature-card:hover {
+      box-shadow: 0 4px 18px rgba(26,82,118,.12);
+      transform: translateY(-2px);
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-bottom: 6px;
+    }
+    .feature-card p {
+      font-size: 0.88rem;
+      color: #6c757d;
+      line-height: 1.55;
+    }
+
+    /* ── Screenshots ─────────────────────────────────────────── */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .screenshot-item { border-radius: 10px; overflow: hidden; }
+    .screenshot-item.wide { grid-column: span 2; }
+    .screenshot-item img,
+    .screenshot-item object {
+      width: 100%;
+      display: block;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+    }
+    .screenshot-caption {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #6c757d;
+      margin-top: 7px;
+      padding: 0 8px;
+    }
+    .screenshot-caption strong { color: #1a3a5c; }
+
+    /* ── Workflow steps ──────────────────────────────────────── */
+    .workflow {
+      display: flex;
+      gap: 0;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .workflow-step {
+      flex: 1;
+      min-width: 130px;
+      text-align: center;
+      padding: 0 8px;
+      position: relative;
+    }
+    .workflow-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -12px; top: 18px;
+      font-size: 1.2rem;
+      color: #adb5bd;
+    }
+    .step-bubble {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .step-label { font-size: 0.82rem; font-weight: 600; color: #495057; }
+    .step-sub   { font-size: 0.72rem; color: #6c757d; }
+
+    /* Colour variants */
+    .step-gray   { background: #e9ecef; color: #495057; }
+    .step-blue   { background: #cfe2ff; color: #0d3d6e; }
+    .step-cyan   { background: #cff4fc; color: #055160; }
+    .step-green  { background: #d1e7dd; color: #0a3622; }
+    .step-red    { background: #f8d7da; color: #58151c; }
+
+    /* ── Modules section ─────────────────────────────────────── */
+    .modules-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .module-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #343a40;
+    }
+    .module-item span { font-size: 1.3rem; }
+
+    /* ── Tech specs ──────────────────────────────────────────── */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .spec-item {
+      background: linear-gradient(135deg,#f0f6ff,#e8f0fe);
+      border-radius: 8px;
+      padding: 18px 16px;
+      text-align: center;
+      border: 1px solid #d0e2ff;
+    }
+    .spec-value {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #1a5276;
+      display: block;
+    }
+    .spec-label {
+      font-size: 0.78rem;
+      color: #6c757d;
+      margin-top: 4px;
+    }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+    .footer {
+      background: #1a3a5c;
+      color: #b8d4f8;
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.88rem;
+    }
+    .footer strong { color: #ffffff; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-logo">
+    <img src="logo.png" alt="Hospital Management Logo"/>
+  </div>
+  <div class="hero-text">
+    <h1>Hospital Management System</h1>
+    <p class="subtitle">
+      A complete, all-in-one healthcare module for Odoo 19 —
+      Patients · Appointments · Lab Tests · Pharmacy · Billing
+    </p>
+    <div class="hero-badges">
+      <span class="badge badge-white">Odoo 19</span>
+      <span class="badge badge-green">v 1.0.0</span>
+      <span class="badge badge-white">Healthcare</span>
+      <span class="badge badge-white">Free &amp; Open Source</span>
+      <span class="badge badge-orange">LGPL-3</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     FEATURES
+══════════════════════════════════════════════════════════════ -->
+<div class="container">
+  <div class="section">
+    <div class="section-title">Everything your hospital needs</div>
+    <div class="section-subtitle">Purpose-built for Odoo 19 — no extra dependencies beyond the standard accounting &amp; product modules.</div>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <span class="feature-icon">👤</span>
+        <h3>Patient Management</h3>
+        <p>Full patient records with photo, date of birth, blood group, contact info and colour-coded tags (Urgent, Diabetic, Elderly…). Auto-generated reference numbers.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">📅</span>
+        <h3>Appointment Scheduling</h3>
+        <p>Lifecycle workflow: <strong>Draft → Confirmed → In Progress → Done</strong>. Calendar view for daily/weekly scheduling. Priority levels, notes, and chatter.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🧪</span>
+        <h3>Lab Tests &amp; Results</h3>
+        <p>Order tests, collect samples, track analysis. Upload X-rays, CT scans, ECG and unlimited result images. Normal/High/Low/Critical result status badges.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🖼️</span>
+        <h3>Medical Image Gallery</h3>
+        <p>Primary image shown large (up to 800×600). Additional images gallery with drag-and-drop reordering, filenames and notes. Thumbnails for quick review.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">💊</span>
+        <h3>Pharmacy &amp; Prescriptions</h3>
+        <p>Issue prescriptions with medicines, dosage, route (oral/IV/topical/…) and frequency (BD/TDS/PRN/STAT…). Workflow: Draft → Confirmed → Dispensed.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🧾</span>
+        <h3>Accounting Integration</h3>
+        <p>Generate customer invoices directly from completed appointments with one click. Links to existing Odoo invoicing, payment states and journal entries.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🔐</span>
+        <h3>Role-Based Access Control</h3>
+        <p>Three security groups — <em>Read Only</em>, <em>User</em>, <em>Manager</em> — with per-company record rules for full multi-company support.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">📄</span>
+        <h3>PDF Reports</h3>
+        <p>Printable Appointment Sheet (with service lines and totals) and Patient Card. QWeb templates ready for customisation.</p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">💬</span>
+        <h3>Mail, Activities &amp; Followers</h3>
+        <p>Full Odoo chatter on patients, appointments, lab tests and prescriptions. Schedule activities, log notes and track every change automatically.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SCREENSHOTS
+══════════════════════════════════════════════════════════════ -->
+<div style="background:#f8f9fa; padding: 0 0 8px;">
+<div class="container">
+  <div class="section">
+    <div class="section-title">Screenshots</div>
+    <div class="section-subtitle">See the module in action — every view is clean, Odoo-native and mobile-responsive.</div>
+
+    <div class="screenshots-grid">
+
+      <div class="screenshot-item wide">
+        <img src="screen_patients.svg" alt="Patient List View"/>
+        <p class="screenshot-caption"><strong>Patient List</strong> — colour-coded rows, tag badges, quick status filter and pagination.</p>
+      </div>
+
+      <div class="screenshot-item">
+        <img src="screen_appointment.svg" alt="Appointment Form"/>
+        <p class="screenshot-caption"><strong>Appointment Form</strong> — smart buttons for Lab Tests, Prescriptions and Invoice. Services lines with totals.</p>
+      </div>
+
+      <div class="screenshot-item">
+        <img src="screen_lab_test.svg" alt="Lab Test Form — Results tab"/>
+        <p class="screenshot-caption"><strong>Lab Test — Results</strong> — numeric value, unit, normal range and findings text. Result status badge (Normal / Critical…).</p>
+      </div>
+
+      <div class="screenshot-item wide">
+        <img src="screen_lab_images.svg" alt="Lab Test — Images &amp; Scans gallery"/>
+        <p class="screenshot-caption"><strong>Lab Test — Images &amp; Scans</strong> — primary X-ray shown full-size; additional images (CT, ECG…) in a sortable list and thumbnail gallery.</p>
+      </div>
+
+      <div class="screenshot-item wide">
+        <img src="screen_prescription.svg" alt="Prescription Form"/>
+        <p class="screenshot-caption"><strong>Prescription Form</strong> — medicines with dosage, route and frequency. Confirmed → Dispensed workflow.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     WORKFLOWS
+══════════════════════════════════════════════════════════════ -->
+<div class="container">
+  <div class="section">
+    <div class="section-title">Built-in Workflows</div>
+    <div class="section-subtitle">Every process follows a clear, trackable lifecycle with state history in the chatter.</div>
+
+    <h4 style="font-size:.9rem;text-transform:uppercase;letter-spacing:.8px;color:#6c757d;margin-bottom:16px;">Appointment</h4>
+    <div class="workflow" style="margin-bottom:40px;">
+      <div class="workflow-step">
+        <div class="step-bubble step-gray">✏️</div>
+        <div class="step-label">Draft</div>
+        <div class="step-sub">Created</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-bubble step-blue">✅</div>
+        <div class="step-label">Confirmed</div>
+        <div class="step-sub">Scheduled</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-bubble step-cyan">🔄</div>
+        <div class="step-label">In Progress</div>
+        <div class="step-sub">Ongoing</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-bubble step-green">🏁</div>
+        <div class="step-label">Done</div>
+        <div class="step-sub">→ Invoice</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-bubble step-red">✖</div>
+        <div class="step-label">Cancelled</div>
+        <div class="step-sub">Optional</div>
+      </div>
+    </div>
+
+    <h4 style="font-size:.9rem;text-transform:uppercase;letter-spacing:.8px;color:#6c757d;margin-bottom:16px;">Lab Test</h4>
+    <div class="workflow" style="margin-bottom:40px;">
+      <div class="workflow-step">
+        <div class="step-bubble step-gray">📋</div>
+        <div class="step-label">Requested</div>
+        <div class="step-sub">Ordered</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-bubble step-blue">🩸</div>
+        <div class="step-label">Sample Collected</div>
+        <div class="step-sub">Lab received</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-bubble step-cyan">🔬</div>
+        <div class="step-label">In Progress</div>
+        <div class="step-sub">Analysis</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-bubble step-green">📊</div>
+        <div class="step-label">Completed</div>
+        <div class="step-sub">Results ready</div>
+      </div>
+    </div>
+
+    <h4 style="font-size:.9rem;text-transform:uppercase;letter-spacing:.8px;color:#6c757d;margin-bottom:16px;">Prescription</h4>
+    <div class="workflow">
+      <div class="workflow-step">
+        <div class="step-bubble step-gray">📝</div>
+        <div class="step-label">Draft</div>
+        <div class="step-sub">Preparing</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-bubble step-blue">✅</div>
+        <div class="step-label">Confirmed</div>
+        <div class="step-sub">Signed off</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-bubble step-green">💊</div>
+        <div class="step-label">Dispensed</div>
+        <div class="step-sub">Pharmacy done</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     MODELS
+══════════════════════════════════════════════════════════════ -->
+<div style="background:#f8f9fa;">
+<div class="container">
+  <div class="section">
+    <div class="section-title">Module Overview</div>
+    <div class="section-subtitle">All models live under the <code>hospital.*</code> namespace with full ORM, security and chatter support.</div>
+
+    <div class="modules-list">
+      <div class="module-item"><span>👤</span> hospital.patient</div>
+      <div class="module-item"><span>🏷️</span> hospital.patient.tag</div>
+      <div class="module-item"><span>📅</span> hospital.appointment</div>
+      <div class="module-item"><span>📦</span> hospital.appointment.line</div>
+      <div class="module-item"><span>🧪</span> hospital.lab.test</div>
+      <div class="module-item"><span>🔬</span> hospital.lab.test.type</div>
+      <div class="module-item"><span>🖼️</span> hospital.lab.result.image</div>
+      <div class="module-item"><span>💊</span> hospital.prescription</div>
+      <div class="module-item"><span>💉</span> hospital.prescription.line</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     TECHNICAL SPECS
+══════════════════════════════════════════════════════════════ -->
+<div class="container">
+  <div class="section">
+    <div class="section-title">Technical Details</div>
+    <div class="section-subtitle">Built to Odoo 19 standards — no hacks, no monkey-patching.</div>
+
+    <div class="specs-grid">
+      <div class="spec-item">
+        <span class="spec-value">19.0</span>
+        <div class="spec-label">Odoo Version</div>
+      </div>
+      <div class="spec-item">
+        <span class="spec-value">9</span>
+        <div class="spec-label">Data Models</div>
+      </div>
+      <div class="spec-item">
+        <span class="spec-value">3</span>
+        <div class="spec-label">Security Groups</div>
+      </div>
+      <div class="spec-item">
+        <span class="spec-value">5</span>
+        <div class="spec-label">Auto Sequences</div>
+      </div>
+      <div class="spec-item">
+        <span class="spec-value">2</span>
+        <div class="spec-label">PDF Reports</div>
+      </div>
+      <div class="spec-item">
+        <span class="spec-value">4</span>
+        <div class="spec-label">Module Dependencies</div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px; display:flex; flex-wrap:wrap; gap:12px;">
+      <div style="background:#e9ecef;border-radius:8px;padding:14px 20px;flex:1;min-width:200px;">
+        <div style="font-weight:700;color:#1a3a5c;margin-bottom:6px;">Dependencies</div>
+        <code style="font-size:.85rem;color:#495057;">base · mail · account · product</code>
+      </div>
+      <div style="background:#e9ecef;border-radius:8px;padding:14px 20px;flex:1;min-width:200px;">
+        <div style="font-weight:700;color:#1a3a5c;margin-bottom:6px;">Sequences</div>
+        <code style="font-size:.85rem;color:#495057;">HP/ · HA/ · LT/ · RX/</code>
+      </div>
+      <div style="background:#e9ecef;border-radius:8px;padding:14px 20px;flex:1;min-width:200px;">
+        <div style="font-weight:700;color:#1a3a5c;margin-bottom:6px;">License</div>
+        <code style="font-size:.85rem;color:#495057;">LGPL-3 (open source)</code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     INSTALLATION
+══════════════════════════════════════════════════════════════ -->
+<div style="background:#f0f6ff; border-top:1px solid #d0e2ff; border-bottom:1px solid #d0e2ff;">
+<div class="container">
+  <div class="section">
+    <div class="section-title">Installation</div>
+    <ol style="font-size:.95rem;color:#343a40;line-height:2;padding-left:24px;">
+      <li>Copy the <code>hospital_management</code> folder into your Odoo add-ons directory.</li>
+      <li>Restart the Odoo server.</li>
+      <li>In the Apps menu, search for <strong>"Hospital Management"</strong> and click <strong>Install</strong>.</li>
+      <li>The <strong>Hospital</strong> top-level menu appears automatically.</li>
+      <li>Go to <strong>Configuration → Lab Test Types</strong> to set up your lab catalogue.</li>
+      <li>Assign users to the <em>Hospital User</em> or <em>Hospital Manager</em> group in Settings → Users.</li>
+    </ol>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <p><strong>Hospital Management System</strong> — v 1.0.0 for Odoo 19</p>
+  <p style="margin-top:6px;">
+    Author: <strong>abdzoro89</strong> &nbsp;·&nbsp; License: LGPL-3 &nbsp;·&nbsp;
+    Built with ❤️ for the Odoo community
+  </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── List view ─────────────────────────────────────────────────────── -->
+    <record id="view_hospital_appointment_list" model="ir.ui.view">
+        <field name="name">hospital.appointment.list</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <list string="Appointments"
+                  decoration-success="state == 'done'"
+                  decoration-info="state == 'in_progress'"
+                  decoration-warning="state == 'confirmed'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="appointment_date"/>
+                <field name="priority" widget="priority" optional="show"/>
+                <field name="amount_total" string="Total"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="invoice_payment_state" widget="badge"
+                       decoration-success="invoice_payment_state == 'paid'"
+                       decoration-warning="invoice_payment_state == 'partial'"
+                       decoration-muted="invoice_payment_state == 'not_paid'"
+                       optional="show" string="Payment"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-info="state == 'in_progress'"
+                       decoration-warning="state == 'confirmed'"
+                       decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ── Form view ─────────────────────────────────────────────────────── -->
+    <record id="view_hospital_appointment_form" model="ir.ui.view">
+        <field name="name">hospital.appointment.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+                <header>
+                    <!-- State buttons -->
+                    <button name="action_confirm"
+                            string="Confirm"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_start"
+                            string="Start"
+                            type="object"
+                            class="btn-info"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_done"
+                            string="Mark Done"
+                            type="object"
+                            class="btn-success"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            invisible="state in ['done', 'cancelled']"
+                            confirm="Are you sure you want to cancel this appointment?"/>
+                    <button name="action_reset_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            invisible="state != 'cancelled'"/>
+
+                    <!-- Invoice buttons -->
+                    <button name="action_create_invoice"
+                            string="Create Invoice"
+                            type="object"
+                            class="btn-warning"
+                            invisible="state != 'done' or invoice_id != False"/>
+                    <button name="action_view_invoice"
+                            string="View Invoice"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="not invoice_id"/>
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,confirmed,in_progress,done"/>
+                </header>
+
+                <sheet>
+                    <!-- Smart buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_invoice"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o"
+                                invisible="invoice_count == 0">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="invoice_count"/>
+                                </span>
+                                <span class="o_stat_text">Invoice</span>
+                            </div>
+                        </button>
+                        <button name="action_view_lab_tests"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-flask">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="lab_test_count"/>
+                                </span>
+                                <span class="o_stat_text">Lab Tests</span>
+                            </div>
+                        </button>
+                        <button name="action_view_prescriptions"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-medkit">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="prescription_count"/>
+                                </span>
+                                <span class="o_stat_text">Prescriptions</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="oe_title">
+                        <label for="name" class="text-muted small"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Appointment Details">
+                            <field name="patient_id"
+                                   options="{'no_create': False}"/>
+                            <field name="doctor_profile_id"
+                                   options="{'no_create': False}"/>
+                            <field name="doctor_id"
+                                   options="{'no_create': False}"/>
+                            <field name="appointment_date"/>
+                            <field name="priority" widget="priority"/>
+                        </group>
+                        <group string="Financials">
+                            <field name="currency_id" options="{'no_create': True}"/>
+                            <field name="amount_total" readonly="1" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="invoice_id" readonly="1"/>
+                            <field name="invoice_payment_state" readonly="1"
+                                   widget="badge"
+                                   decoration-success="invoice_payment_state == 'paid'"
+                                   decoration-warning="invoice_payment_state == 'partial'"
+                                   invisible="not invoice_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Services / Medicines" name="lines">
+                            <field name="line_ids">
+                                <list string="Lines" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="qty"/>
+                                    <field name="price_unit" string="Unit Price"/>
+                                    <field name="account_id" optional="hide"/>
+                                    <field name="subtotal" readonly="1" string="Subtotal"/>
+                                </list>
+                            </field>
+                            <!-- Totals row -->
+                            <group class="oe_subtotal_footer">
+                                <field name="amount_total" readonly="1"
+                                       class="oe_subtotal_footer_separator"
+                                       widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" nolabel="1"
+                                   placeholder="Add notes about this appointment…"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Kanban view ────────────────────────────────────────────────────── -->
+    <record id="view_hospital_appointment_kanban" model="ir.ui.view">
+        <field name="name">hospital.appointment.kanban</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" quick_create="false">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="appointment_date"/>
+                <field name="amount_total"/>
+                <field name="currency_id"/>
+                <field name="state"/>
+                <field name="priority"/>
+                <templates>
+                    <t t-name="card">
+                        <main>
+                            <field name="priority" widget="priority" class="float-end"/>
+                            <div class="fw-bold">
+                                <field name="patient_id"/>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fa fa-user-md me-1"/>
+                                <field name="doctor_id"/>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fa fa-clock-o me-1"/>
+                                <field name="appointment_date"/>
+                            </div>
+                        </main>
+                        <footer>
+                            <span class="text-muted small">
+                                <field name="name"/>
+                            </span>
+                            <span class="ms-auto fw-bold">
+                                <field name="amount_total" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ── Calendar view ──────────────────────────────────────────────────── -->
+    <record id="view_hospital_appointment_calendar" model="ir.ui.view">
+        <field name="name">hospital.appointment.calendar</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Appointments"
+                      date_start="appointment_date"
+                      color="doctor_id"
+                      mode="month"
+                      quick_create="false">
+                <field name="patient_id" filters="1"/>
+                <field name="doctor_id"  filters="1"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- ── Search view ────────────────────────────────────────────────────── -->
+    <record id="view_hospital_appointment_search" model="ir.ui.view">
+        <field name="name">hospital.appointment.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search string="Search Appointments">
+                <field name="name" string="Reference"/>
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+
+                <separator/>
+                <filter name="draft"       string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="confirmed"   string="Confirmed"
+                        domain="[('state', '=', 'confirmed')]"/>
+                <filter name="in_progress" string="In Progress"
+                        domain="[('state', '=', 'in_progress')]"/>
+                <filter name="done"        string="Done"
+                        domain="[('state', '=', 'done')]"/>
+                <filter name="cancelled"   string="Cancelled"
+                        domain="[('state', '=', 'cancelled')]"/>
+
+                <separator/>
+                <filter name="today" string="Today"
+                        domain="[('appointment_date', '&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)).strftime('%Y-%m-%d %H:%M:%S')),
+                                 ('appointment_date', '&lt;', datetime.datetime.combine(context_today() + datetime.timedelta(days=1), datetime.time(0,0,0)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                <filter name="not_invoiced" string="Not Invoiced"
+                        domain="[('state', '=', 'done'), ('invoice_id', '=', False)]"/>
+
+                <separator/>
+                <filter name="my_appointments" string="My Appointments"
+                        domain="[('doctor_id', '=', uid)]"/>
+
+                <group>
+                    <filter name="group_state"  string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_doctor" string="Doctor"
+                            context="{'group_by': 'doctor_id'}"/>
+                    <filter name="group_patient" string="Patient"
+                            context="{'group_by': 'patient_id'}"/>
+                    <filter name="group_date"   string="Appointment Date"
+                            context="{'group_by': 'appointment_date:week'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ── Action ─────────────────────────────────────────────────────────── -->
+    <record id="action_hospital_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">list,kanban,calendar,form</field>
+        <field name="search_view_id" ref="view_hospital_appointment_search"/>
+        <field name="context">{'search_default_confirmed': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Schedule the first appointment</p>
+            <p>
+                Create an appointment, add services/medicines, then
+                confirm and generate an invoice when done.
+            </p>
+        </field>
+    </record>
+
+</odoo>

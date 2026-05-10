@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         LAB TEST TYPES
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <record id="view_lab_test_type_list" model="ir.ui.view">
+        <field name="name">hospital.lab.test.type.list</field>
+        <field name="model">hospital.lab.test.type</field>
+        <field name="arch" type="xml">
+            <list string="Lab Test Types" editable="top">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category"/>
+                <field name="sample_type" optional="show"/>
+                <field name="active" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_lab_test_type_form" model="ir.ui.view">
+        <field name="name">hospital.lab.test.type.form</field>
+        <field name="model">hospital.lab.test.type</field>
+        <field name="arch" type="xml">
+            <form string="Lab Test Type">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Test name…"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="category"/>
+                            <field name="sample_type"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="normal_range"/>
+                        </group>
+                    </group>
+                    <group string="Patient Preparation Instructions">
+                        <field name="preparation" nolabel="1"
+                               placeholder="e.g. Fast for 8 hours before the test…"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_lab_test_type" model="ir.actions.act_window">
+        <field name="name">Lab Test Types</field>
+        <field name="res_model">hospital.lab.test.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         LAB TESTS
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <!-- ── List ──────────────────────────────────────────────────────────── -->
+    <record id="view_lab_test_list" model="ir.ui.view">
+        <field name="name">hospital.lab.test.list</field>
+        <field name="model">hospital.lab.test</field>
+        <field name="arch" type="xml">
+            <list string="Lab Tests"
+                  decoration-success="state == 'completed'"
+                  decoration-info="state == 'in_progress'"
+                  decoration-warning="state == 'sample_collected'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="test_type_id"/>
+                <field name="category" optional="show"/>
+                <field name="doctor_id"/>
+                <field name="request_date"/>
+                <field name="result_date" optional="show"/>
+                <field name="result_status" widget="badge"
+                       decoration-success="result_status == 'normal'"
+                       decoration-warning="result_status == 'high' or result_status == 'low'"
+                       decoration-danger="result_status == 'critical'"
+                       optional="show"/>
+                <field name="image_count" string="Images" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'completed'"
+                       decoration-info="state == 'in_progress'"
+                       decoration-warning="state == 'sample_collected'"
+                       decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ── Form (with image gallery) ─────────────────────────────────────── -->
+    <record id="view_lab_test_form" model="ir.ui.view">
+        <field name="name">hospital.lab.test.form</field>
+        <field name="model">hospital.lab.test</field>
+        <field name="arch" type="xml">
+            <form string="Lab Test">
+                <header>
+                    <button name="action_collect_sample"
+                            string="Collect Sample"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state != 'requested'"/>
+                    <button name="action_start"
+                            string="Start Analysis"
+                            type="object"
+                            class="btn-info"
+                            invisible="state != 'sample_collected'"/>
+                    <button name="action_complete"
+                            string="Mark Completed"
+                            type="object"
+                            class="btn-success"
+                            invisible="state not in ['in_progress','sample_collected','requested']"/>
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            invisible="state in ['completed','cancelled']"
+                            confirm="Cancel this lab test?"/>
+                    <button name="action_reset"
+                            string="Reset"
+                            type="object"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="requested,sample_collected,in_progress,completed"/>
+                </header>
+
+                <sheet>
+                    <!-- Smart button: images -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_complete" type="object"
+                                class="oe_stat_button" icon="fa-image"
+                                invisible="state == 'completed'">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="image_count"/>
+                                </span>
+                                <span class="o_stat_text">Images</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="oe_title">
+                        <label for="name" class="text-muted small"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+
+                    <!-- Test info -->
+                    <group>
+                        <group string="Test Information">
+                            <field name="test_type_id"/>
+                            <field name="category" readonly="1"/>
+                            <field name="patient_id"/>
+                            <field name="appointment_id"/>
+                            <field name="doctor_id"/>
+                            <field name="lab_technician"/>
+                        </group>
+                        <group string="Dates &amp; Schedule">
+                            <field name="request_date"/>
+                            <field name="result_date" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+
+                        <!-- ── Results tab ──────────────────────────────── -->
+                        <page string="Results" name="results">
+                            <group>
+                                <group string="Numeric Result">
+                                    <field name="result_value"/>
+                                    <field name="result_unit"/>
+                                    <field name="result_status" widget="badge"
+                                           decoration-success="result_status == 'normal'"
+                                           decoration-warning="result_status in ['high','low']"
+                                           decoration-danger="result_status == 'critical'"/>
+                                    <field name="normal_range" readonly="1"/>
+                                </group>
+                                <group string="Findings">
+                                    <field name="result_text" nolabel="1"
+                                           placeholder="Enter lab findings, diagnosis or observations…"
+                                           colspan="2"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- ── Images / Scans tab ──────────────────────── -->
+                        <page string="Images &amp; Scans" name="images">
+
+                            <!-- Primary image – large display -->
+                            <div class="row mb-4" invisible="not result_image">
+                                <div class="col-12">
+                                    <h6 class="text-muted mb-2">
+                                        <i class="fa fa-image me-1"/> Primary Result Image
+                                    </h6>
+                                </div>
+                                <div class="col-md-8 col-lg-6">
+                                    <field name="result_image"
+                                           widget="image"
+                                           class="img-fluid rounded shadow-sm"
+                                           options="{'size': [800, 600], 'preview_image': 'result_image'}"
+                                           style="max-height:500px; object-fit:contain; width:100%;"/>
+                                    <div class="mt-1">
+                                        <field name="result_image_filename"
+                                               readonly="1"
+                                               class="text-muted small"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upload primary image -->
+                            <group invisible="result_image">
+                                <field name="result_image"
+                                       widget="image"
+                                       string="Upload Primary Image"
+                                       options="{'size': [800, 600]}"
+                                       help="Upload the main X-ray, scan or test result image."/>
+                                <field name="result_image_filename" invisible="1"/>
+                            </group>
+
+                            <hr class="mt-0 mb-3" invisible="not result_image_ids and not result_image"/>
+
+                            <!-- Additional images gallery -->
+                            <h6 class="text-muted" invisible="not result_image_ids">
+                                <i class="fa fa-th me-1"/> Additional Images
+                            </h6>
+                            <field name="result_image_ids">
+                                <list string="Result Images" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="image"
+                                           widget="image"
+                                           options="{'size': [128, 128]}"
+                                           string="Image"/>
+                                    <field name="name"/>
+                                    <field name="image_filename" optional="hide"/>
+                                    <field name="note" optional="show"/>
+                                </list>
+                            </field>
+
+                            <!-- Gallery count badge -->
+                            <div class="row mt-3" invisible="not result_image_ids">
+                                <div class="col-12">
+                                    <h6 class="text-muted mb-2">
+                                        <i class="fa fa-picture-o me-1"/> Gallery
+                                    </h6>
+                                </div>
+                            </div>
+
+                        </page>
+
+                        <!-- ── Notes ────────────────────────────────────── -->
+                        <page string="Notes" name="notes">
+                            <field name="note" nolabel="1"
+                                   placeholder="Internal notes for this lab test…"/>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Kanban view ────────────────────────────────────────────────────── -->
+    <record id="view_lab_test_kanban" model="ir.ui.view">
+        <field name="name">hospital.lab.test.kanban</field>
+        <field name="model">hospital.lab.test</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" quick_create="false">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="test_type_id"/>
+                <field name="state"/>
+                <field name="result_status"/>
+                <field name="result_image"/>
+                <field name="image_count"/>
+                <field name="request_date"/>
+                <templates>
+                    <t t-name="card">
+                        <!-- Show thumbnail if image exists -->
+                        <aside t-if="record.result_image.raw_value">
+                            <field name="result_image" widget="image"
+                                   class="o_image_64_cover"/>
+                        </aside>
+                        <main>
+                            <div class="fw-bold">
+                                <field name="test_type_id"/>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fa fa-user me-1"/>
+                                <field name="patient_id"/>
+                            </div>
+                            <div class="text-muted small">
+                                <i class="fa fa-calendar me-1"/>
+                                <field name="request_date"/>
+                            </div>
+                        </main>
+                        <footer>
+                            <span class="text-muted small"><field name="name"/></span>
+                            <field name="result_status" widget="badge"
+                                   decoration-success="result_status == 'normal'"
+                                   decoration-warning="result_status in ['high','low']"
+                                   decoration-danger="result_status == 'critical'"
+                                   class="ms-auto"
+                                   invisible="not result_status"/>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ── Search view ────────────────────────────────────────────────────── -->
+    <record id="view_lab_test_search" model="ir.ui.view">
+        <field name="name">hospital.lab.test.search</field>
+        <field name="model">hospital.lab.test</field>
+        <field name="arch" type="xml">
+            <search string="Search Lab Tests">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="test_type_id"/>
+                <field name="doctor_id"/>
+
+                <separator/>
+                <filter name="requested"        string="Requested"
+                        domain="[('state','=','requested')]"/>
+                <filter name="sample_collected" string="Sample Collected"
+                        domain="[('state','=','sample_collected')]"/>
+                <filter name="in_progress"      string="In Progress"
+                        domain="[('state','=','in_progress')]"/>
+                <filter name="completed"        string="Completed"
+                        domain="[('state','=','completed')]"/>
+
+                <separator/>
+                <filter name="critical"  string="Critical"
+                        domain="[('result_status','=','critical')]"/>
+                <filter name="with_images" string="Has Images"
+                        domain="[('result_image','!=',False)]"/>
+
+                <group>
+                    <filter name="group_state"    string="Status"
+                            context="{'group_by':'state'}"/>
+                    <filter name="group_type"     string="Test Type"
+                            context="{'group_by':'test_type_id'}"/>
+                    <filter name="group_category" string="Category"
+                            context="{'group_by':'category'}"/>
+                    <filter name="group_patient"  string="Patient"
+                            context="{'group_by':'patient_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ── Action ─────────────────────────────────────────────────────────── -->
+    <record id="action_lab_test" model="ir.actions.act_window">
+        <field name="name">Lab Tests</field>
+        <field name="res_model">hospital.lab.test</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_lab_test_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Order the first lab test</p>
+            <p>
+                Create lab test requests, upload result images (X-rays, scans)
+                and track test progress from sample collection to completion.
+            </p>
+        </field>
+    </record>
+
+</odoo>

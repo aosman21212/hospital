@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         PATIENT TAGS
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="tag_urgent"       model="hospital.patient.tag"><field name="name">Urgent</field>      <field name="color">1</field></record>
+    <record id="tag_diabetic"     model="hospital.patient.tag"><field name="name">Diabetic</field>    <field name="color">3</field></record>
+    <record id="tag_elderly"      model="hospital.patient.tag"><field name="name">Elderly</field>     <field name="color">5</field></record>
+    <record id="tag_allergy"      model="hospital.patient.tag"><field name="name">Allergy</field>     <field name="color">6</field></record>
+    <record id="tag_pediatric"    model="hospital.patient.tag"><field name="name">Pediatric</field>   <field name="color">10</field></record>
+    <record id="tag_post_surgery" model="hospital.patient.tag"><field name="name">Post-Surgery</field><field name="color">4</field></record>
+    <record id="tag_cardiac"      model="hospital.patient.tag"><field name="name">Cardiac</field>     <field name="color">2</field></record>
+    <record id="tag_hypertension" model="hospital.patient.tag"><field name="name">Hypertension</field><field name="color">7</field></record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         DOCTORS
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="doctor_mohammed" model="hospital.doctor">
+        <field name="name">Dr. Mohammed Al-Rashid</field>
+        <field name="specialisation">cardiology</field>
+        <field name="degree">MBBS, MD (Cardiology), FACC</field>
+        <field name="license_no">MOH-2018-4421</field>
+        <field name="phone">+971 50 111 2233</field>
+        <field name="email">dr.mohammed@hospital.ae</field>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="available_mon" eval="True"/>
+        <field name="available_tue" eval="True"/>
+        <field name="available_wed" eval="True"/>
+        <field name="available_thu" eval="True"/>
+        <field name="available_fri" eval="True"/>
+        <field name="available_sat" eval="False"/>
+        <field name="available_sun" eval="False"/>
+        <field name="consultation_from" eval="8.0"/>
+        <field name="consultation_to"   eval="16.0"/>
+        <field name="consultation_duration">30</field>
+        <field name="state">active</field>
+        <field name="note">Senior cardiologist with 15 years experience. Specialises in interventional cardiology and heart failure management.</field>
+    </record>
+
+    <record id="doctor_sarah" model="hospital.doctor">
+        <field name="name">Dr. Sarah Al-Nouri</field>
+        <field name="specialisation">general</field>
+        <field name="degree">MBBS, MRCGP</field>
+        <field name="license_no">MOH-2020-7832</field>
+        <field name="phone">+971 55 222 3344</field>
+        <field name="email">dr.sarah@hospital.ae</field>
+        <field name="available_mon" eval="True"/>
+        <field name="available_tue" eval="True"/>
+        <field name="available_wed" eval="False"/>
+        <field name="available_thu" eval="True"/>
+        <field name="available_fri" eval="True"/>
+        <field name="available_sat" eval="True"/>
+        <field name="available_sun" eval="False"/>
+        <field name="consultation_from" eval="9.0"/>
+        <field name="consultation_to"   eval="17.0"/>
+        <field name="consultation_duration">20</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="doctor_khalid" model="hospital.doctor">
+        <field name="name">Dr. Khalid Ibrahim</field>
+        <field name="specialisation">neurology</field>
+        <field name="degree">MBBS, MD (Neurology), FRCP</field>
+        <field name="license_no">MOH-2015-1193</field>
+        <field name="phone">+971 50 333 4455</field>
+        <field name="email">dr.khalid@hospital.ae</field>
+        <field name="available_mon" eval="True"/>
+        <field name="available_tue" eval="False"/>
+        <field name="available_wed" eval="True"/>
+        <field name="available_thu" eval="False"/>
+        <field name="available_fri" eval="True"/>
+        <field name="available_sat" eval="False"/>
+        <field name="available_sun" eval="False"/>
+        <field name="consultation_from" eval="10.0"/>
+        <field name="consultation_to"   eval="15.0"/>
+        <field name="consultation_duration">45</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="doctor_aisha" model="hospital.doctor">
+        <field name="name">Dr. Aisha Al-Farsi</field>
+        <field name="specialisation">pediatrics</field>
+        <field name="degree">MBBS, DCH, MRCPCH</field>
+        <field name="license_no">MOH-2019-5560</field>
+        <field name="phone">+971 55 444 5566</field>
+        <field name="email">dr.aisha@hospital.ae</field>
+        <field name="available_mon" eval="True"/>
+        <field name="available_tue" eval="True"/>
+        <field name="available_wed" eval="True"/>
+        <field name="available_thu" eval="True"/>
+        <field name="available_fri" eval="False"/>
+        <field name="available_sat" eval="True"/>
+        <field name="available_sun" eval="False"/>
+        <field name="consultation_from" eval="8.5"/>
+        <field name="consultation_to"   eval="14.0"/>
+        <field name="consultation_duration">30</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="doctor_omar_h" model="hospital.doctor">
+        <field name="name">Dr. Omar Hassan</field>
+        <field name="specialisation">surgery</field>
+        <field name="degree">MBBS, FRCS (General Surgery)</field>
+        <field name="license_no">MOH-2012-0087</field>
+        <field name="phone">+971 52 555 6677</field>
+        <field name="email">dr.omar@hospital.ae</field>
+        <field name="available_mon" eval="True"/>
+        <field name="available_tue" eval="True"/>
+        <field name="available_wed" eval="True"/>
+        <field name="available_thu" eval="True"/>
+        <field name="available_fri" eval="True"/>
+        <field name="available_sat" eval="False"/>
+        <field name="available_sun" eval="False"/>
+        <field name="consultation_from" eval="7.0"/>
+        <field name="consultation_to"   eval="13.0"/>
+        <field name="consultation_duration">60</field>
+        <field name="state">on_leave</field>
+        <field name="note">Currently on annual leave until end of month.</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         WARDS
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="ward_general_a" model="hospital.ward">
+        <field name="name">General Ward A</field>
+        <field name="code">GWA</field>
+        <field name="ward_type">general</field>
+        <field name="bed_count">24</field>
+        <field name="floor">Floor 2</field>
+        <field name="description">Main general medicine ward serving adult patients. Equipped with nurse call systems and standard monitoring.</field>
+    </record>
+
+    <record id="ward_icu" model="hospital.ward">
+        <field name="name">Intensive Care Unit</field>
+        <field name="code">ICU</field>
+        <field name="ward_type">icu</field>
+        <field name="bed_count">8</field>
+        <field name="floor">Floor 3</field>
+        <field name="description">Critical care unit with 24/7 monitoring, ventilators and advanced life support equipment.</field>
+    </record>
+
+    <record id="ward_surgery" model="hospital.ward">
+        <field name="name">Surgical Ward</field>
+        <field name="code">SRG</field>
+        <field name="ward_type">surgery</field>
+        <field name="bed_count">16</field>
+        <field name="floor">Floor 3</field>
+        <field name="description">Pre and post-operative surgical ward. Patients admitted for elective and emergency surgical procedures.</field>
+    </record>
+
+    <record id="ward_maternity" model="hospital.ward">
+        <field name="name">Maternity Ward</field>
+        <field name="code">MAT</field>
+        <field name="ward_type">maternity</field>
+        <field name="bed_count">18</field>
+        <field name="floor">Floor 4</field>
+        <field name="description">Labour, delivery and postnatal care. Includes labour rooms, delivery suites and postnatal beds.</field>
+    </record>
+
+    <record id="ward_pediatric" model="hospital.ward">
+        <field name="name">Pediatric Ward</field>
+        <field name="code">PDW</field>
+        <field name="ward_type">pediatric</field>
+        <field name="bed_count">12</field>
+        <field name="floor">Floor 2</field>
+        <field name="description">Dedicated ward for patients aged 0–16 years. Child-friendly environment with play area.</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         NURSES
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="nurse_fatima" model="hospital.nurse">
+        <field name="name">Fatima Al-Zahra</field>
+        <field name="specialisation">general</field>
+        <field name="degree">BSc Nursing</field>
+        <field name="license_no">NL-2019-3301</field>
+        <field name="phone">+971 50 601 1001</field>
+        <field name="email">fatima.nurse@hospital.ae</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="nurse_ahmed" model="hospital.nurse">
+        <field name="name">Ahmed Hamdan</field>
+        <field name="specialisation">icu</field>
+        <field name="degree">BSc Nursing, ICU Certification</field>
+        <field name="license_no">NL-2017-1158</field>
+        <field name="phone">+971 55 602 2002</field>
+        <field name="email">ahmed.nurse@hospital.ae</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="nurse_maria" model="hospital.nurse">
+        <field name="name">Maria Santos</field>
+        <field name="specialisation">pediatric</field>
+        <field name="degree">BSc Nursing, Paediatric Diploma</field>
+        <field name="license_no">NL-2020-4420</field>
+        <field name="phone">+971 52 603 3003</field>
+        <field name="email">maria.nurse@hospital.ae</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="nurse_layla" model="hospital.nurse">
+        <field name="name">Layla Al-Khatib</field>
+        <field name="specialisation">surgical</field>
+        <field name="degree">BSc Nursing, Perioperative Cert.</field>
+        <field name="license_no">NL-2018-2275</field>
+        <field name="phone">+971 50 604 4004</field>
+        <field name="email">layla.nurse@hospital.ae</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="nurse_hassan" model="hospital.nurse">
+        <field name="name">Hassan Omar</field>
+        <field name="specialisation">general</field>
+        <field name="degree">BSc Nursing</field>
+        <field name="license_no">NL-2021-5591</field>
+        <field name="phone">+971 55 605 5005</field>
+        <field name="email">hassan.nurse@hospital.ae</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="nurse_priya" model="hospital.nurse">
+        <field name="name">Priya Sharma</field>
+        <field name="specialisation">midwifery</field>
+        <field name="degree">BSc Midwifery, RM</field>
+        <field name="license_no">NL-2016-0882</field>
+        <field name="phone">+971 52 606 6006</field>
+        <field name="email">priya.nurse@hospital.ae</field>
+        <field name="state">on_leave</field>
+        <field name="note">Maternity leave until July 2026.</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         NURSE ASSIGNMENTS
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="assign_fatima_general" model="hospital.nurse.assignment">
+        <field name="nurse_id" ref="nurse_fatima"/>
+        <field name="ward_id"  ref="ward_general_a"/>
+        <field name="shift">morning</field>
+        <field name="date_start" eval="(datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')"/>
+        <field name="state">active</field>
+    </record>
+
+    <record id="assign_ahmed_icu_night" model="hospital.nurse.assignment">
+        <field name="nurse_id" ref="nurse_ahmed"/>
+        <field name="ward_id"  ref="ward_icu"/>
+        <field name="shift">night</field>
+        <field name="date_start" eval="(datetime.now() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+        <field name="state">active</field>
+        <field name="note">Covering critical care cases in ICU.</field>
+    </record>
+
+    <record id="assign_maria_pediatric" model="hospital.nurse.assignment">
+        <field name="nurse_id" ref="nurse_maria"/>
+        <field name="ward_id"  ref="ward_pediatric"/>
+        <field name="shift">morning</field>
+        <field name="date_start" eval="(datetime.now() - timedelta(days=14)).strftime('%Y-%m-%d')"/>
+        <field name="state">active</field>
+    </record>
+
+    <record id="assign_layla_surgery" model="hospital.nurse.assignment">
+        <field name="nurse_id" ref="nurse_layla"/>
+        <field name="ward_id"  ref="ward_surgery"/>
+        <field name="shift">afternoon</field>
+        <field name="date_start" eval="datetime.now().strftime('%Y-%m-%d')"/>
+        <field name="state">active</field>
+    </record>
+
+    <record id="assign_hassan_general_scheduled" model="hospital.nurse.assignment">
+        <field name="nurse_id" ref="nurse_hassan"/>
+        <field name="ward_id"  ref="ward_general_a"/>
+        <field name="shift">afternoon</field>
+        <field name="date_start" eval="(datetime.now() + timedelta(days=2)).strftime('%Y-%m-%d')"/>
+        <field name="date_end"   eval="(datetime.now() + timedelta(days=30)).strftime('%Y-%m-%d')"/>
+        <field name="state">scheduled</field>
+    </record>
+
+    <record id="assign_ahmed_icu_morning" model="hospital.nurse.assignment">
+        <field name="nurse_id" ref="nurse_ahmed"/>
+        <field name="ward_id"  ref="ward_icu"/>
+        <field name="shift">morning</field>
+        <field name="date_start" eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')"/>
+        <field name="state">scheduled</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         PATIENTS  (with medical history)
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="patient_ahmed" model="hospital.patient">
+        <field name="name">Ahmed Al-Rashid</field>
+        <field name="dob">1980-04-15</field>
+        <field name="gender">male</field>
+        <field name="blood_group">o+</field>
+        <field name="phone">+971 50 123 4567</field>
+        <field name="email">ahmed.rashid@example.com</field>
+        <field name="state">active</field>
+        <field name="tag_ids" eval="[(4, ref('tag_diabetic'))]"/>
+        <field name="allergies">Sulfonamides</field>
+        <field name="chronic_conditions">Type 2 Diabetes, Hypertension</field>
+        <field name="current_medications">Metformin 1000mg BD, Lisinopril 10mg OD, Aspirin 81mg OD</field>
+        <field name="emergency_contact">Maryam Al-Rashid</field>
+        <field name="emergency_phone">+971 50 987 1234</field>
+        <field name="emergency_relation">spouse</field>
+        <field name="medical_history">&lt;p&gt;&lt;strong&gt;Diagnosed with Type 2 Diabetes Mellitus&lt;/strong&gt; in 2015. Currently managed with oral hypoglycaemics. Last HbA1c: 7.4% (May 2026). Known hypertension since 2018, well-controlled on Lisinopril.&lt;/p&gt;&lt;p&gt;No prior hospitalisations. Annual eye and foot exams up to date.&lt;/p&gt;</field>
+    </record>
+
+    <record id="patient_fatima" model="hospital.patient">
+        <field name="name">Fatima Al-Hassan</field>
+        <field name="dob">1995-08-22</field>
+        <field name="gender">female</field>
+        <field name="blood_group">a+</field>
+        <field name="phone">+971 55 987 6543</field>
+        <field name="email">fatima.hassan@example.com</field>
+        <field name="state">active</field>
+        <field name="tag_ids" eval="[(4, ref('tag_allergy'))]"/>
+        <field name="allergies">Penicillin, Tree pollen, Cat dander</field>
+        <field name="chronic_conditions">Allergic rhinitis, Mild asthma</field>
+        <field name="current_medications">Cetirizine 10mg OD PRN, Salbutamol inhaler PRN</field>
+        <field name="emergency_contact">Hassan Al-Hassan</field>
+        <field name="emergency_phone">+971 55 112 3456</field>
+        <field name="emergency_relation">parent</field>
+        <field name="medical_history">&lt;p&gt;History of allergic rhinitis since childhood. Mild intermittent asthma, well-controlled. Anaphylaxis episode to Penicillin in 2018 — carries EpiPen. Skin prick tests confirm multiple environmental allergens.&lt;/p&gt;</field>
+    </record>
+
+    <record id="patient_khalid" model="hospital.patient">
+        <field name="name">Khalid Mohammed</field>
+        <field name="dob">1945-11-03</field>
+        <field name="gender">male</field>
+        <field name="blood_group">b-</field>
+        <field name="phone">+971 50 456 7890</field>
+        <field name="email">khalid.m@example.com</field>
+        <field name="state">active</field>
+        <field name="tag_ids" eval="[(4, ref('tag_elderly')), (4, ref('tag_diabetic'))]"/>
+        <field name="allergies">NSAIDs (GI intolerance)</field>
+        <field name="chronic_conditions">Type 1 Diabetes, Hypertension, Mild CKD (Stage 2), Hyperlipidaemia</field>
+        <field name="current_medications">Insulin Glargine 28 units nocte, Insulin Aspart TDS with meals, Amlodipine 5mg OD, Atorvastatin 40mg OD</field>
+        <field name="past_surgeries">Appendectomy (1978), Right knee replacement (2019)</field>
+        <field name="family_history">Father — MI at age 60; Mother — T2DM; Brother — hypertension</field>
+        <field name="emergency_contact">Ali Mohammed</field>
+        <field name="emergency_phone">+971 50 321 0987</field>
+        <field name="emergency_relation">child</field>
+        <field name="medical_history">&lt;p&gt;Long-standing Type 1 Diabetes on insulin therapy. Multiple complications: peripheral neuropathy (bilateral), early diabetic nephropathy. Hypertension managed pharmacologically. Annual cardiology review. Last eGFR 68 ml/min/1.73m².&lt;/p&gt;</field>
+    </record>
+
+    <record id="patient_sara" model="hospital.patient">
+        <field name="name">Sara Johnson</field>
+        <field name="dob">2015-03-10</field>
+        <field name="gender">female</field>
+        <field name="blood_group">ab+</field>
+        <field name="phone">+971 55 234 5678</field>
+        <field name="state">active</field>
+        <field name="tag_ids" eval="[(4, ref('tag_pediatric'))]"/>
+        <field name="allergies">None known</field>
+        <field name="emergency_contact">James Johnson</field>
+        <field name="emergency_phone">+971 55 234 5677</field>
+        <field name="emergency_relation">parent</field>
+        <field name="medical_history">&lt;p&gt;Healthy child. Vaccinations up to date per UAE schedule. Mild seasonal allergic rhinitis managed conservatively. No chronic conditions.&lt;/p&gt;</field>
+    </record>
+
+    <record id="patient_omar" model="hospital.patient">
+        <field name="name">Omar Al-Farsi</field>
+        <field name="dob">1972-07-19</field>
+        <field name="gender">male</field>
+        <field name="blood_group">a-</field>
+        <field name="phone">+971 52 345 6789</field>
+        <field name="state">discharged</field>
+        <field name="tag_ids" eval="[(4, ref('tag_urgent'))]"/>
+        <field name="allergies">Latex</field>
+        <field name="chronic_conditions">Hypertension, GERD</field>
+        <field name="current_medications">Omeprazole 20mg OD, Amlodipine 10mg OD</field>
+        <field name="past_surgeries">Cholecystectomy (laparoscopic) — May 2026</field>
+        <field name="emergency_contact">Noura Al-Farsi</field>
+        <field name="emergency_phone">+971 52 999 0001</field>
+        <field name="emergency_relation">spouse</field>
+        <field name="medical_history">&lt;p&gt;Admitted May 2026 for laparoscopic cholecystectomy due to symptomatic gallstones. Procedure uneventful. Discharged 3 days post-op in stable condition. Follow-up scheduled in 6 weeks.&lt;/p&gt;</field>
+    </record>
+
+    <record id="patient_layla" model="hospital.patient">
+        <field name="name">Layla Al-Amri</field>
+        <field name="dob">1988-05-14</field>
+        <field name="gender">female</field>
+        <field name="blood_group">b+</field>
+        <field name="phone">+971 53 456 7891</field>
+        <field name="email">layla.amri@example.com</field>
+        <field name="state">active</field>
+        <field name="tag_ids" eval="[(4, ref('tag_post_surgery'))]"/>
+        <field name="allergies">Iodine contrast (mild reaction)</field>
+        <field name="chronic_conditions">Post-op recovery — right ACL reconstruction</field>
+        <field name="current_medications">Ibuprofen 400mg TDS (with food), Physiotherapy ongoing</field>
+        <field name="past_surgeries">Right ACL reconstruction — April 2026</field>
+        <field name="emergency_contact">Saeed Al-Amri</field>
+        <field name="emergency_phone">+971 53 321 0099</field>
+        <field name="emergency_relation">spouse</field>
+    </record>
+
+    <record id="patient_hassan_p" model="hospital.patient">
+        <field name="name">Hassan Al-Nasser</field>
+        <field name="dob">1965-09-28</field>
+        <field name="gender">male</field>
+        <field name="blood_group">o-</field>
+        <field name="phone">+971 50 567 8901</field>
+        <field name="email">hassan.nasser@example.com</field>
+        <field name="state">active</field>
+        <field name="tag_ids" eval="[(4, ref('tag_cardiac'))]"/>
+        <field name="allergies">Clopidogrel (rash)</field>
+        <field name="chronic_conditions">Ischaemic Heart Disease, Atrial Fibrillation, Hyperlipidaemia</field>
+        <field name="current_medications">Warfarin 5mg OD, Atorvastatin 80mg OD, Bisoprolol 5mg OD, Ramipril 5mg OD</field>
+        <field name="past_surgeries">CABG x3 (2019)</field>
+        <field name="family_history">Father — fatal MI at 58; Brother — stents at 52</field>
+        <field name="emergency_contact">Hana Al-Nasser</field>
+        <field name="emergency_phone">+971 50 111 5566</field>
+        <field name="emergency_relation">spouse</field>
+        <field name="medical_history">&lt;p&gt;Known IHD post-CABG 2019. AF diagnosed 2021 on anticoagulation. Regular cardiology follow-up. Last echo: EF 48%. INR target 2.0–3.0. Lipids well controlled on Atorvastatin.&lt;/p&gt;</field>
+    </record>
+
+    <record id="patient_nour" model="hospital.patient">
+        <field name="name">Nour Al-Mansouri</field>
+        <field name="dob">1998-12-05</field>
+        <field name="gender">female</field>
+        <field name="blood_group">a+</field>
+        <field name="phone">+971 55 678 9012</field>
+        <field name="email">nour.mansouri@example.com</field>
+        <field name="state">active</field>
+        <field name="allergies">None known</field>
+        <field name="emergency_contact">Khalifa Al-Mansouri</field>
+        <field name="emergency_phone">+971 55 222 3344</field>
+        <field name="emergency_relation">parent</field>
+    </record>
+
+    <record id="patient_tariq" model="hospital.patient">
+        <field name="name">Tariq Ibrahim</field>
+        <field name="dob">2010-06-18</field>
+        <field name="gender">male</field>
+        <field name="blood_group">ab-</field>
+        <field name="phone">+971 52 789 0123</field>
+        <field name="state">active</field>
+        <field name="tag_ids" eval="[(4, ref('tag_pediatric'))]"/>
+        <field name="allergies">Egg (mild)</field>
+        <field name="chronic_conditions">Mild persistent asthma</field>
+        <field name="current_medications">Fluticasone inhaler 50mcg BD, Salbutamol inhaler PRN</field>
+        <field name="emergency_contact">Ibrahim Al-Sayed</field>
+        <field name="emergency_phone">+971 52 789 0124</field>
+        <field name="emergency_relation">parent</field>
+    </record>
+
+    <record id="patient_mariam" model="hospital.patient">
+        <field name="name">Mariam Al-Zahra</field>
+        <field name="dob">1975-02-20</field>
+        <field name="gender">female</field>
+        <field name="blood_group">o+</field>
+        <field name="phone">+971 50 890 1234</field>
+        <field name="email">mariam.zahra@example.com</field>
+        <field name="state">active</field>
+        <field name="tag_ids" eval="[(4, ref('tag_diabetic')), (4, ref('tag_hypertension'))]"/>
+        <field name="allergies">Codeine (nausea/vomiting)</field>
+        <field name="chronic_conditions">Type 2 Diabetes, Hypertension, Obesity (BMI 33)</field>
+        <field name="current_medications">Metformin 500mg TDS, Enalapril 10mg OD, Simvastatin 20mg nocte</field>
+        <field name="emergency_contact">Yusuf Al-Zahra</field>
+        <field name="emergency_phone">+971 50 890 1235</field>
+        <field name="emergency_relation">spouse</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         APPOINTMENTS
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="appt_ahmed_confirmed" model="hospital.appointment">
+        <field name="patient_id"       ref="patient_ahmed"/>
+        <field name="doctor_id"        ref="base.user_admin"/>
+        <field name="doctor_profile_id" ref="doctor_mohammed"/>
+        <field name="appointment_date" eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d 09:00:00')"/>
+        <field name="state">confirmed</field>
+        <field name="priority">2</field>
+        <field name="notes">Follow-up for diabetes management. Check HbA1c and BP. Review medications.</field>
+    </record>
+    <record id="appt_ahmed_line1" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_ahmed_confirmed"/>
+        <field name="product_id"     ref="product.product_product_4"/>
+        <field name="name">Cardiology &amp; Diabetes Consultation</field>
+        <field name="qty">1</field><field name="price_unit">250.00</field>
+    </record>
+    <record id="appt_ahmed_line2" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_ahmed_confirmed"/>
+        <field name="product_id"     ref="product.product_product_5b"/>
+        <field name="name">HbA1c Blood Test</field>
+        <field name="qty">1</field><field name="price_unit">45.00</field>
+    </record>
+
+    <record id="appt_fatima_done" model="hospital.appointment">
+        <field name="patient_id"       ref="patient_fatima"/>
+        <field name="doctor_id"        ref="base.user_admin"/>
+        <field name="doctor_profile_id" ref="doctor_sarah"/>
+        <field name="appointment_date" eval="(datetime.now() - timedelta(days=3)).strftime('%Y-%m-%d 10:30:00')"/>
+        <field name="state">done</field>
+        <field name="notes">Allergy review. Symptoms well controlled. Prescribed antihistamines for seasonal exacerbation.</field>
+    </record>
+    <record id="appt_fatima_line1" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_fatima_done"/>
+        <field name="product_id"     ref="product.product_product_4"/>
+        <field name="name">Allergy Consultation</field>
+        <field name="qty">1</field><field name="price_unit">150.00</field>
+    </record>
+    <record id="appt_fatima_line2" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_fatima_done"/>
+        <field name="product_id"     ref="product.product_product_5b"/>
+        <field name="name">Allergy Panel Test</field>
+        <field name="qty">1</field><field name="price_unit">120.00</field>
+    </record>
+
+    <record id="appt_khalid_inprogress" model="hospital.appointment">
+        <field name="patient_id"       ref="patient_khalid"/>
+        <field name="doctor_id"        ref="base.user_admin"/>
+        <field name="doctor_profile_id" ref="doctor_mohammed"/>
+        <field name="appointment_date" eval="datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="state">in_progress</field>
+        <field name="priority">3</field>
+        <field name="notes">Urgent review — reported chest tightness this morning. ECG ordered.</field>
+    </record>
+    <record id="appt_khalid_line1" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_khalid_inprogress"/>
+        <field name="product_id"     ref="product.product_product_4"/>
+        <field name="name">Urgent Cardiology Review</field>
+        <field name="qty">1</field><field name="price_unit">300.00</field>
+    </record>
+    <record id="appt_khalid_line2" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_khalid_inprogress"/>
+        <field name="product_id"     ref="product.product_product_5b"/>
+        <field name="name">ECG &amp; Troponin Test</field>
+        <field name="qty">1</field><field name="price_unit">85.00</field>
+    </record>
+
+    <record id="appt_sara_draft" model="hospital.appointment">
+        <field name="patient_id"       ref="patient_sara"/>
+        <field name="doctor_id"        ref="base.user_admin"/>
+        <field name="doctor_profile_id" ref="doctor_aisha"/>
+        <field name="appointment_date" eval="(datetime.now() + timedelta(days=5)).strftime('%Y-%m-%d 14:00:00')"/>
+        <field name="state">draft</field>
+        <field name="notes">Routine annual pediatric check-up and vaccination review.</field>
+    </record>
+    <record id="appt_sara_line1" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_sara_draft"/>
+        <field name="product_id"     ref="product.product_product_4"/>
+        <field name="name">Pediatric Annual Check-up</field>
+        <field name="qty">1</field><field name="price_unit">120.00</field>
+    </record>
+
+    <record id="appt_hassan_done" model="hospital.appointment">
+        <field name="patient_id"       ref="patient_hassan_p"/>
+        <field name="doctor_id"        ref="base.user_admin"/>
+        <field name="doctor_profile_id" ref="doctor_mohammed"/>
+        <field name="appointment_date" eval="(datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d 08:00:00')"/>
+        <field name="state">done</field>
+        <field name="notes">Cardiology 6-month follow-up post-CABG. Stable. Echo and INR reviewed.</field>
+    </record>
+    <record id="appt_hassan_line1" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_hassan_done"/>
+        <field name="product_id"     ref="product.product_product_4"/>
+        <field name="name">Cardiology Follow-up Consultation</field>
+        <field name="qty">1</field><field name="price_unit">250.00</field>
+    </record>
+    <record id="appt_hassan_line2" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_hassan_done"/>
+        <field name="product_id"     ref="product.product_product_5b"/>
+        <field name="name">Echocardiogram</field>
+        <field name="qty">1</field><field name="price_unit">350.00</field>
+    </record>
+
+    <record id="appt_mariam_confirmed" model="hospital.appointment">
+        <field name="patient_id"       ref="patient_mariam"/>
+        <field name="doctor_id"        ref="base.user_admin"/>
+        <field name="doctor_profile_id" ref="doctor_sarah"/>
+        <field name="appointment_date" eval="(datetime.now() + timedelta(days=3)).strftime('%Y-%m-%d 11:00:00')"/>
+        <field name="state">confirmed</field>
+        <field name="notes">Routine diabetes and hypertension review. Fasting labs requested.</field>
+    </record>
+    <record id="appt_mariam_line1" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_mariam_confirmed"/>
+        <field name="product_id"     ref="product.product_product_4"/>
+        <field name="name">General Practice Consultation</field>
+        <field name="qty">1</field><field name="price_unit">150.00</field>
+    </record>
+
+    <record id="appt_nour_draft" model="hospital.appointment">
+        <field name="patient_id"       ref="patient_nour"/>
+        <field name="doctor_id"        ref="base.user_admin"/>
+        <field name="doctor_profile_id" ref="doctor_khalid"/>
+        <field name="appointment_date" eval="(datetime.now() + timedelta(days=10)).strftime('%Y-%m-%d 10:00:00')"/>
+        <field name="state">draft</field>
+        <field name="notes">New patient — referral from GP for recurrent migraines.</field>
+    </record>
+
+    <record id="appt_tariq_confirmed" model="hospital.appointment">
+        <field name="patient_id"       ref="patient_tariq"/>
+        <field name="doctor_id"        ref="base.user_admin"/>
+        <field name="doctor_profile_id" ref="doctor_aisha"/>
+        <field name="appointment_date" eval="(datetime.now() + timedelta(days=2)).strftime('%Y-%m-%d 09:30:00')"/>
+        <field name="state">confirmed</field>
+        <field name="notes">Asthma review. Assess inhaler technique and check peak flow diary.</field>
+    </record>
+    <record id="appt_tariq_line1" model="hospital.appointment.line">
+        <field name="appointment_id" ref="appt_tariq_confirmed"/>
+        <field name="product_id"     ref="product.product_product_4"/>
+        <field name="name">Pediatric Asthma Review</field>
+        <field name="qty">1</field><field name="price_unit">130.00</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         LAB TEST TYPES
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="ltt_cbc" model="hospital.lab.test.type">
+        <field name="name">Complete Blood Count (CBC)</field>
+        <field name="code">CBC</field>
+        <field name="category">blood</field>
+        <field name="sample_type">Venous blood — EDTA tube (purple top)</field>
+        <field name="normal_range">RBC 4.5–5.5 ×10⁶/μL | WBC 4.0–11.0 ×10³/μL | Hb 12–17 g/dL | Platelets 150–400 ×10³/μL</field>
+        <field name="preparation">No fasting required. Avoid strenuous exercise 24h before.</field>
+    </record>
+
+    <record id="ltt_glucose" model="hospital.lab.test.type">
+        <field name="name">Fasting Blood Glucose</field>
+        <field name="code">FBG</field>
+        <field name="category">blood</field>
+        <field name="sample_type">Venous blood — fluoride oxalate tube (grey top)</field>
+        <field name="normal_range">Fasting: 3.9–5.5 mmol/L | Pre-diabetic: 5.6–6.9 | Diabetic: ≥7.0</field>
+        <field name="preparation">Fast for a minimum of 8 hours. Water is permitted.</field>
+    </record>
+
+    <record id="ltt_hba1c" model="hospital.lab.test.type">
+        <field name="name">HbA1c (Glycated Haemoglobin)</field>
+        <field name="code">HBA1C</field>
+        <field name="category">blood</field>
+        <field name="sample_type">Venous blood — EDTA tube (purple top)</field>
+        <field name="normal_range">Normal: &lt;5.7% | Pre-diabetic: 5.7–6.4% | Diabetic: ≥6.5%</field>
+        <field name="preparation">No fasting required.</field>
+    </record>
+
+    <record id="ltt_urinalysis" model="hospital.lab.test.type">
+        <field name="name">Urinalysis (Routine)</field>
+        <field name="code">UA</field>
+        <field name="category">urine</field>
+        <field name="sample_type">Mid-stream urine — sterile universal container</field>
+        <field name="normal_range">pH 4.5–8.0 | Protein: negative | Glucose: negative | WBC: &lt;5/HPF</field>
+        <field name="preparation">Collect mid-stream urine first thing in the morning. Clean-catch technique.</field>
+    </record>
+
+    <record id="ltt_lft" model="hospital.lab.test.type">
+        <field name="name">Liver Function Tests (LFT)</field>
+        <field name="code">LFT</field>
+        <field name="category">blood</field>
+        <field name="sample_type">Venous blood — SST tube (gold top)</field>
+        <field name="normal_range">ALT 7–56 U/L | AST 10–40 U/L | ALP 44–147 U/L | Bilirubin 3–20 μmol/L</field>
+        <field name="preparation">Fast for 8–12 hours. Avoid alcohol for 24h prior.</field>
+    </record>
+
+    <record id="ltt_xray_chest" model="hospital.lab.test.type">
+        <field name="name">Chest X-Ray (PA)</field>
+        <field name="code">CXR-PA</field>
+        <field name="category">imaging</field>
+        <field name="sample_type">Radiological imaging — no sample required</field>
+        <field name="normal_range">Clear lung fields. Normal cardiac silhouette. No consolidation, effusion or pneumothorax.</field>
+        <field name="preparation">Remove jewellery and metallic objects. Wear hospital gown. Inform if pregnant.</field>
+    </record>
+
+    <record id="ltt_ecg" model="hospital.lab.test.type">
+        <field name="name">12-Lead ECG</field>
+        <field name="code">ECG-12</field>
+        <field name="category">other</field>
+        <field name="sample_type">Electrical recording — electrodes on chest and limbs</field>
+        <field name="normal_range">Normal sinus rhythm 60–100 bpm. Normal axis. No ST changes or conduction abnormalities.</field>
+        <field name="preparation">Lie still during recording. Avoid caffeine 2h before.</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         LAB TESTS
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="lab_ahmed_hba1c" model="hospital.lab.test">
+        <field name="patient_id"    ref="patient_ahmed"/>
+        <field name="appointment_id" ref="appt_ahmed_confirmed"/>
+        <field name="doctor_id"     ref="base.user_admin"/>
+        <field name="test_type_id"  ref="ltt_hba1c"/>
+        <field name="request_date"  eval="(datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="state">completed</field>
+        <field name="result_value">7.4</field>
+        <field name="result_unit">%</field>
+        <field name="result_status">high</field>
+        <field name="result_text">HbA1c slightly above target (target &lt;7.0%). Indicates suboptimal glycaemic control over the past 3 months. Recommend medication review and dietary counselling. Retest in 3 months.</field>
+    </record>
+
+    <record id="lab_khalid_glucose" model="hospital.lab.test">
+        <field name="patient_id"   ref="patient_khalid"/>
+        <field name="doctor_id"    ref="base.user_admin"/>
+        <field name="test_type_id" ref="ltt_glucose"/>
+        <field name="request_date" eval="datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="state">in_progress</field>
+        <field name="lab_technician">Lab Tech Yasser Al-Nour</field>
+        <field name="result_text">Sample received. Analysis in progress.</field>
+    </record>
+
+    <record id="lab_khalid_ecg" model="hospital.lab.test">
+        <field name="patient_id"    ref="patient_khalid"/>
+        <field name="appointment_id" ref="appt_khalid_inprogress"/>
+        <field name="doctor_id"     ref="base.user_admin"/>
+        <field name="test_type_id"  ref="ltt_ecg"/>
+        <field name="request_date"  eval="datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="state">sample_collected</field>
+        <field name="lab_technician">Lab Tech Yasser Al-Nour</field>
+    </record>
+
+    <record id="lab_hassan_ecg" model="hospital.lab.test">
+        <field name="patient_id"    ref="patient_hassan_p"/>
+        <field name="appointment_id" ref="appt_hassan_done"/>
+        <field name="doctor_id"     ref="base.user_admin"/>
+        <field name="test_type_id"  ref="ltt_ecg"/>
+        <field name="request_date"  eval="(datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="state">completed</field>
+        <field name="result_status">normal</field>
+        <field name="result_text">Atrial fibrillation with controlled ventricular rate (~72 bpm). No new ST-segment or T-wave changes compared to prior ECG (Dec 2025). No evidence of acute ischaemia. Rate control appears adequate on current Bisoprolol dose.</field>
+    </record>
+
+    <record id="lab_fatima_cbc" model="hospital.lab.test">
+        <field name="patient_id"    ref="patient_fatima"/>
+        <field name="appointment_id" ref="appt_fatima_done"/>
+        <field name="doctor_id"     ref="base.user_admin"/>
+        <field name="test_type_id"  ref="ltt_cbc"/>
+        <field name="request_date"  eval="(datetime.now() - timedelta(days=3)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="state">completed</field>
+        <field name="result_value">6.8</field>
+        <field name="result_unit">×10³/μL</field>
+        <field name="result_status">normal</field>
+        <field name="result_text">WBC 6.8 ×10³/μL — within normal limits. Eosinophil count mildly elevated at 0.6 ×10³/μL (ref &lt;0.5), consistent with allergic state. Hb 13.2 g/dL (normal). Platelets 245 ×10³/μL (normal). No haematological cause for concern.</field>
+    </record>
+
+    <record id="lab_mariam_lft" model="hospital.lab.test">
+        <field name="patient_id"   ref="patient_mariam"/>
+        <field name="doctor_id"    ref="base.user_admin"/>
+        <field name="test_type_id" ref="ltt_lft"/>
+        <field name="request_date" eval="(datetime.now() + timedelta(days=3)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="state">requested</field>
+        <field name="result_text">Ordered as part of diabetes annual review. Statin monitoring.</field>
+    </record>
+
+    <record id="lab_tariq_cbc" model="hospital.lab.test">
+        <field name="patient_id"   ref="patient_tariq"/>
+        <field name="doctor_id"    ref="base.user_admin"/>
+        <field name="test_type_id" ref="ltt_cbc"/>
+        <field name="request_date" eval="(datetime.now() + timedelta(days=2)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="state">requested</field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         PRESCRIPTIONS
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <record id="rx_ahmed" model="hospital.prescription">
+        <field name="patient_id"        ref="patient_ahmed"/>
+        <field name="appointment_id"    ref="appt_ahmed_confirmed"/>
+        <field name="doctor_id"         ref="base.user_admin"/>
+        <field name="prescription_date" eval="datetime.now().strftime('%Y-%m-%d')"/>
+        <field name="valid_until"       eval="(datetime.now() + timedelta(days=90)).strftime('%Y-%m-%d')"/>
+        <field name="state">confirmed</field>
+        <field name="notes">Take Metformin with meals to reduce GI side effects. Monitor blood glucose daily. Report any muscle pain immediately (Statin side effect).</field>
+    </record>
+    <record id="rx_ahmed_line1" model="hospital.prescription.line">
+        <field name="prescription_id" ref="rx_ahmed"/>
+        <field name="product_id"      ref="product.product_product_4"/>
+        <field name="name">Metformin 1000mg</field>
+        <field name="dosage">1000 mg</field>
+        <field name="route">oral</field>
+        <field name="frequency">twice</field>
+        <field name="duration">3 months (ongoing)</field>
+        <field name="instructions">Take with meals</field>
+        <field name="qty">180</field><field name="price_unit">0.50</field>
+    </record>
+    <record id="rx_ahmed_line2" model="hospital.prescription.line">
+        <field name="prescription_id" ref="rx_ahmed"/>
+        <field name="product_id"      ref="product.product_product_5b"/>
+        <field name="name">Lisinopril 10mg</field>
+        <field name="dosage">10 mg</field>
+        <field name="route">oral</field>
+        <field name="frequency">once</field>
+        <field name="duration">Ongoing</field>
+        <field name="instructions">Take in the morning. Monitor blood pressure weekly.</field>
+        <field name="qty">90</field><field name="price_unit">0.30</field>
+    </record>
+    <record id="rx_ahmed_line3" model="hospital.prescription.line">
+        <field name="prescription_id" ref="rx_ahmed"/>
+        <field name="product_id"      ref="product.product_product_4"/>
+        <field name="name">Atorvastatin 40mg</field>
+        <field name="dosage">40 mg</field>
+        <field name="route">oral</field>
+        <field name="frequency">once</field>
+        <field name="duration">Ongoing</field>
+        <field name="instructions">Take at bedtime</field>
+        <field name="qty">90</field><field name="price_unit">0.80</field>
+    </record>
+
+    <record id="rx_fatima" model="hospital.prescription">
+        <field name="patient_id"        ref="patient_fatima"/>
+        <field name="appointment_id"    ref="appt_fatima_done"/>
+        <field name="doctor_id"         ref="base.user_admin"/>
+        <field name="prescription_date" eval="(datetime.now() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+        <field name="valid_until"       eval="(datetime.now() + timedelta(days=27)).strftime('%Y-%m-%d')"/>
+        <field name="state">dispensed</field>
+        <field name="notes">Avoid known allergens. Carry EpiPen at all times. If symptoms worsen seek emergency care immediately.</field>
+        <field name="pharmacist_note">Dispensed full course. Patient counselled on EpiPen technique.</field>
+    </record>
+    <record id="rx_fatima_line1" model="hospital.prescription.line">
+        <field name="prescription_id" ref="rx_fatima"/>
+        <field name="product_id"      ref="product.product_product_4"/>
+        <field name="name">Cetirizine 10mg</field>
+        <field name="dosage">10 mg</field>
+        <field name="route">oral</field>
+        <field name="frequency">once</field>
+        <field name="duration">30 days PRN</field>
+        <field name="instructions">Take once daily at bedtime. May cause drowsiness.</field>
+        <field name="qty">30</field><field name="price_unit">0.40</field>
+    </record>
+    <record id="rx_fatima_line2" model="hospital.prescription.line">
+        <field name="prescription_id" ref="rx_fatima"/>
+        <field name="product_id"      ref="product.product_product_5b"/>
+        <field name="name">Salbutamol Inhaler 100mcg</field>
+        <field name="dosage">100 mcg / puff — 2 puffs</field>
+        <field name="route">inhalation</field>
+        <field name="frequency">as_needed</field>
+        <field name="duration">PRN</field>
+        <field name="instructions">Use spacer device. Shake well before use. Max 8 puffs per day.</field>
+        <field name="qty">2</field><field name="price_unit">18.00</field>
+    </record>
+
+    <record id="rx_khalid" model="hospital.prescription">
+        <field name="patient_id"        ref="patient_khalid"/>
+        <field name="appointment_id"    ref="appt_khalid_inprogress"/>
+        <field name="doctor_id"         ref="base.user_admin"/>
+        <field name="prescription_date" eval="datetime.now().strftime('%Y-%m-%d')"/>
+        <field name="valid_until"       eval="(datetime.now() + timedelta(days=30)).strftime('%Y-%m-%d')"/>
+        <field name="state">confirmed</field>
+        <field name="notes">Urgent cardiac review. Troponin results pending. Monitor closely. If chest pain recurs, transfer to ICU immediately.</field>
+    </record>
+    <record id="rx_khalid_line1" model="hospital.prescription.line">
+        <field name="prescription_id" ref="rx_khalid"/>
+        <field name="product_id"      ref="product.product_product_4"/>
+        <field name="name">Aspirin 300mg (loading dose)</field>
+        <field name="dosage">300 mg</field>
+        <field name="route">oral</field>
+        <field name="frequency">stat</field>
+        <field name="duration">Single dose — STAT</field>
+        <field name="instructions">Chew and swallow immediately. Do not crush.</field>
+        <field name="qty">1</field><field name="price_unit">0.10</field>
+    </record>
+    <record id="rx_khalid_line2" model="hospital.prescription.line">
+        <field name="prescription_id" ref="rx_khalid"/>
+        <field name="product_id"      ref="product.product_product_5b"/>
+        <field name="name">GTN Spray (Glyceryl Trinitrate)</field>
+        <field name="dosage">400 mcg / spray</field>
+        <field name="route">sublingual</field>
+        <field name="frequency">as_needed</field>
+        <field name="duration">PRN chest pain</field>
+        <field name="instructions">Spray under tongue if chest pain occurs. Sit down first. Repeat after 5 min if no relief (max 3 doses). Call emergency if no relief after 3 doses.</field>
+        <field name="qty">1</field><field name="price_unit">22.00</field>
+    </record>
+
+    <record id="rx_hassan" model="hospital.prescription">
+        <field name="patient_id"        ref="patient_hassan_p"/>
+        <field name="appointment_id"    ref="appt_hassan_done"/>
+        <field name="doctor_id"         ref="base.user_admin"/>
+        <field name="prescription_date" eval="(datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')"/>
+        <field name="valid_until"       eval="(datetime.now() + timedelta(days=173)).strftime('%Y-%m-%d')"/>
+        <field name="state">dispensed</field>
+        <field name="notes">Warfarin dose adjusted — new dose 5mg OD. INR check in 1 week. Avoid grapefruit juice. Report any unusual bleeding.</field>
+        <field name="pharmacist_note">Dispensed 6-month supply. Patient given warfarin card and bleeding precautions leaflet.</field>
+    </record>
+    <record id="rx_hassan_line1" model="hospital.prescription.line">
+        <field name="prescription_id" ref="rx_hassan"/>
+        <field name="product_id"      ref="product.product_product_4"/>
+        <field name="name">Warfarin 5mg</field>
+        <field name="dosage">5 mg</field>
+        <field name="route">oral</field>
+        <field name="frequency">once</field>
+        <field name="duration">6 months (ongoing)</field>
+        <field name="instructions">Take at same time each day. INR monitoring required. Avoid NSAIDs.</field>
+        <field name="qty">180</field><field name="price_unit">0.20</field>
+    </record>
+    <record id="rx_hassan_line2" model="hospital.prescription.line">
+        <field name="prescription_id" ref="rx_hassan"/>
+        <field name="product_id"      ref="product.product_product_5b"/>
+        <field name="name">Bisoprolol 5mg</field>
+        <field name="dosage">5 mg</field>
+        <field name="route">oral</field>
+        <field name="frequency">once</field>
+        <field name="duration">Ongoing</field>
+        <field name="instructions">Do not stop abruptly. Take in the morning.</field>
+        <field name="qty">180</field><field name="price_unit">0.35</field>
+    </record>
+
+    <record id="rx_mariam_draft" model="hospital.prescription">
+        <field name="patient_id"        ref="patient_mariam"/>
+        <field name="doctor_id"         ref="base.user_admin"/>
+        <field name="prescription_date" eval="(datetime.now() + timedelta(days=3)).strftime('%Y-%m-%d')"/>
+        <field name="state">draft</field>
+        <field name="notes">To be finalised after LFT results. Current medications to be reviewed.</field>
+    </record>
+
+</data>
+</odoo>

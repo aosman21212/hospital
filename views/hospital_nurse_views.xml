@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         WARDS
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <record id="view_hospital_ward_list" model="ir.ui.view">
+        <field name="name">hospital.ward.list</field>
+        <field name="model">hospital.ward</field>
+        <field name="arch" type="xml">
+            <list string="Wards" editable="top">
+                <field name="name"/>
+                <field name="code" optional="show"/>
+                <field name="ward_type"/>
+                <field name="bed_count"/>
+                <field name="floor" optional="show"/>
+                <field name="nurse_count" string="Active Nurses"/>
+                <field name="active" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hospital_ward_form" model="ir.ui.view">
+        <field name="name">hospital.ward.form</field>
+        <field name="model">hospital.ward</field>
+        <field name="arch" type="xml">
+            <form string="Ward">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            invisible="active"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Ward name…"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="ward_type"/>
+                            <field name="bed_count"/>
+                            <field name="floor"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="nurse_count" readonly="1" string="Active Nurses"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"
+                               placeholder="Ward description, special equipment, protocols…"/>
+                    </group>
+                    <group string="Nurse Assignments">
+                        <field name="nurse_assignment_ids" nolabel="1">
+                            <list string="Assignments">
+                                <field name="nurse_id"/>
+                                <field name="shift"/>
+                                <field name="date_start"/>
+                                <field name="date_end" optional="show"/>
+                                <field name="patient_id" optional="show"/>
+                                <field name="state" widget="badge"
+                                       decoration-info="state == 'scheduled'"
+                                       decoration-success="state == 'active'"
+                                       decoration-muted="state in ['completed','cancelled']"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hospital_ward" model="ir.actions.act_window">
+        <field name="name">Wards</field>
+        <field name="res_model">hospital.ward</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add the first ward</p>
+            <p>Define hospital wards — ICU, General, Surgery, Maternity, Pediatric and more.</p>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         NURSES
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <record id="view_hospital_nurse_list" model="ir.ui.view">
+        <field name="name">hospital.nurse.list</field>
+        <field name="model">hospital.nurse</field>
+        <field name="arch" type="xml">
+            <list string="Nurses"
+                  decoration-success="state == 'active'"
+                  decoration-warning="state == 'on_leave'"
+                  decoration-muted="state == 'inactive'">
+                <field name="photo" widget="image" options="{'size': [32,32]}" optional="show"/>
+                <field name="ref" string="ID"/>
+                <field name="name"/>
+                <field name="specialisation" optional="show"/>
+                <field name="current_ward_id" optional="show" string="Current Ward"/>
+                <field name="phone" optional="show"/>
+                <field name="assignment_count" string="Assignments"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-warning="state == 'on_leave'"
+                       decoration-muted="state == 'inactive'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hospital_nurse_form" model="ir.ui.view">
+        <field name="name">hospital.nurse.form</field>
+        <field name="model">hospital.nurse</field>
+        <field name="arch" type="xml">
+            <form string="Nurse">
+                <header>
+                    <button name="action_set_active"   string="Set Active"
+                            type="object" class="btn-success"
+                            invisible="state == 'active'"/>
+                    <button name="action_set_on_leave" string="On Leave"
+                            type="object" class="btn-warning"
+                            invisible="state == 'on_leave'"/>
+                    <button name="action_set_inactive" string="Deactivate"
+                            type="object"
+                            invisible="state == 'inactive'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="active,on_leave,inactive"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_assignments"
+                                type="object" class="oe_stat_button" icon="fa-bed">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="assignment_count"/>
+                                </span>
+                                <span class="o_stat_text">Assignments</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <field name="photo" widget="image" class="oe_avatar"
+                           options="{'preview_image': 'photo'}"/>
+                    <div class="oe_title">
+                        <label for="ref" class="text-muted small"/>
+                        <div><field name="ref" readonly="1" class="text-muted small"/></div>
+                        <h1><field name="name" placeholder="Nurse full name…"/></h1>
+                        <h4 class="text-muted">
+                            <field name="specialisation" placeholder="Specialisation…"/>
+                        </h4>
+                    </div>
+
+                    <group>
+                        <group string="Professional Details">
+                            <field name="degree"/>
+                            <field name="license_no"/>
+                            <field name="user_id"/>
+                            <field name="current_ward_id" readonly="1"/>
+                        </group>
+                        <group string="Contact">
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Assignments" name="assignments">
+                            <field name="assignment_ids">
+                                <list string="Assignments">
+                                    <field name="ward_id"/>
+                                    <field name="shift"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end" optional="show"/>
+                                    <field name="patient_id" optional="show"/>
+                                    <field name="state" widget="badge"
+                                           decoration-info="state == 'scheduled'"
+                                           decoration-success="state == 'active'"
+                                           decoration-muted="state in ['completed','cancelled']"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="note" nolabel="1"
+                                   placeholder="Internal notes…"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hospital_nurse_kanban" model="ir.ui.view">
+        <field name="name">hospital.nurse.kanban</field>
+        <field name="model">hospital.nurse</field>
+        <field name="arch" type="xml">
+            <kanban quick_create="false">
+                <field name="name"/>
+                <field name="specialisation"/>
+                <field name="state"/>
+                <field name="photo"/>
+                <field name="current_ward_id"/>
+                <field name="assignment_count"/>
+                <templates>
+                    <t t-name="card">
+                        <aside t-if="record.photo.raw_value">
+                            <field name="photo" widget="image" class="o_image_64_cover"/>
+                        </aside>
+                        <main>
+                            <div class="fw-bold fs-5"><field name="name"/></div>
+                            <div class="text-muted small"><field name="specialisation"/></div>
+                            <div class="text-muted small" invisible="not current_ward_id">
+                                <i class="fa fa-bed me-1"/>
+                                <field name="current_ward_id"/>
+                            </div>
+                        </main>
+                        <footer>
+                            <span class="text-muted small">
+                                <field name="assignment_count"/> assignments
+                            </span>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'active'"
+                                   decoration-warning="state == 'on_leave'"
+                                   decoration-muted="state == 'inactive'"
+                                   class="ms-auto"/>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_hospital_nurse_search" model="ir.ui.view">
+        <field name="name">hospital.nurse.search</field>
+        <field name="model">hospital.nurse</field>
+        <field name="arch" type="xml">
+            <search string="Search Nurses">
+                <field name="name"/>
+                <field name="specialisation"/>
+                <field name="current_ward_id"/>
+                <separator/>
+                <filter name="active"   string="Active"   domain="[('state','=','active')]"/>
+                <filter name="on_leave" string="On Leave" domain="[('state','=','on_leave')]"/>
+                <group>
+                    <filter name="group_spec" string="Specialisation"
+                            context="{'group_by':'specialisation'}"/>
+                    <filter name="group_ward" string="Current Ward"
+                            context="{'group_by':'current_ward_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hospital_nurse" model="ir.actions.act_window">
+        <field name="name">Nurses</field>
+        <field name="res_model">hospital.nurse</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_hospital_nurse_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add the first nurse</p>
+            <p>Manage nurse profiles, specialisations and ward assignments.</p>
+        </field>
+    </record>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         NURSE ASSIGNMENTS
+    ══════════════════════════════════════════════════════════════════════════ -->
+
+    <record id="view_nurse_assignment_list" model="ir.ui.view">
+        <field name="name">hospital.nurse.assignment.list</field>
+        <field name="model">hospital.nurse.assignment</field>
+        <field name="arch" type="xml">
+            <list string="Nurse Assignments"
+                  decoration-success="state == 'active'"
+                  decoration-info="state == 'scheduled'"
+                  decoration-muted="state in ['completed','cancelled']">
+                <field name="nurse_id"/>
+                <field name="ward_id"/>
+                <field name="shift"/>
+                <field name="date_start"/>
+                <field name="date_end" optional="show"/>
+                <field name="patient_id" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'scheduled'"
+                       decoration-success="state == 'active'"
+                       decoration-muted="state in ['completed','cancelled']"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_nurse_assignment_form" model="ir.ui.view">
+        <field name="name">hospital.nurse.assignment.form</field>
+        <field name="model">hospital.nurse.assignment</field>
+        <field name="arch" type="xml">
+            <form string="Nurse Assignment">
+                <header>
+                    <button name="action_activate" string="Activate"
+                            type="object" class="btn-success"
+                            invisible="state != 'scheduled'"/>
+                    <button name="action_complete" string="Complete"
+                            type="object" class="btn-secondary"
+                            invisible="state != 'active'"/>
+                    <button name="action_cancel"   string="Cancel"
+                            type="object"
+                            invisible="state in ['completed','cancelled']"
+                            confirm="Cancel this nurse assignment?"/>
+                    <button name="action_reset"    string="Reset"
+                            type="object"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="scheduled,active,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Assignment">
+                            <field name="nurse_id"/>
+                            <field name="ward_id"/>
+                            <field name="patient_id"/>
+                            <field name="shift"/>
+                        </group>
+                        <group string="Schedule">
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="note" nolabel="1"
+                               placeholder="Assignment notes, special instructions…"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_nurse_assignment_search" model="ir.ui.view">
+        <field name="name">hospital.nurse.assignment.search</field>
+        <field name="model">hospital.nurse.assignment</field>
+        <field name="arch" type="xml">
+            <search string="Search Assignments">
+                <field name="nurse_id"/>
+                <field name="ward_id"/>
+                <field name="patient_id"/>
+                <separator/>
+                <filter name="scheduled"  string="Scheduled"
+                        domain="[('state','=','scheduled')]"/>
+                <filter name="active"     string="Active"
+                        domain="[('state','=','active')]"/>
+                <filter name="today"      string="Today"
+                        domain="[('date_start','=',context_today().strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter name="group_ward"  string="Ward"
+                            context="{'group_by':'ward_id'}"/>
+                    <filter name="group_nurse" string="Nurse"
+                            context="{'group_by':'nurse_id'}"/>
+                    <filter name="group_shift" string="Shift"
+                            context="{'group_by':'shift'}"/>
+                    <filter name="group_date"  string="Date"
+                            context="{'group_by':'date_start:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_nurse_assignment" model="ir.actions.act_window">
+        <field name="name">Nurse Assignments</field>
+        <field name="res_model">hospital.nurse.assignment</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_nurse_assignment_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first assignment</p>
+            <p>Assign nurses to wards and patients with morning, afternoon and night shifts.</p>
+        </field>
+    </record>
+
+</odoo>

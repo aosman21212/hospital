@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         APPOINTMENT SHEET
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <template id="report_hospital_appointment_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+
+                        <!-- Header banner -->
+                        <div class="row mb-3">
+                            <div class="col-8">
+                                <h2 class="text-primary mb-1">Appointment Sheet</h2>
+                                <h4 t-esc="doc.name"/>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span t-attf-class="badge #{
+                                    'bg-success' if doc.state == 'done' else
+                                    'bg-primary' if doc.state == 'in_progress' else
+                                    'bg-warning text-dark' if doc.state == 'confirmed' else
+                                    'bg-secondary'
+                                }" style="font-size:1rem">
+                                    <t t-esc="dict(doc._fields['state'].selection).get(doc.state, doc.state)"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <hr class="mb-3"/>
+
+                        <!-- Appointment details -->
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <table class="table table-sm table-borderless">
+                                    <tr>
+                                        <td class="fw-bold text-muted" style="width:40%">Patient</td>
+                                        <td t-esc="doc.patient_id.name"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-muted">Doctor</td>
+                                        <td t-esc="doc.doctor_id.name"/>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-muted">Date &amp; Time</td>
+                                        <td>
+                                            <t t-esc="doc.appointment_date"
+                                               t-options="{'widget': 'datetime', 'format': 'dd/MM/yyyy HH:mm'}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <table class="table table-sm table-borderless">
+                                    <tr t-if="doc.patient_id.blood_group">
+                                        <td class="fw-bold text-muted" style="width:40%">Blood Group</td>
+                                        <td t-esc="dict(doc.patient_id._fields['blood_group'].selection).get(doc.patient_id.blood_group, '')"/>
+                                    </tr>
+                                    <tr t-if="doc.patient_id.phone">
+                                        <td class="fw-bold text-muted">Phone</td>
+                                        <td t-esc="doc.patient_id.phone"/>
+                                    </tr>
+                                    <tr t-if="doc.invoice_id">
+                                        <td class="fw-bold text-muted">Invoice</td>
+                                        <td t-esc="doc.invoice_id.name"/>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Services / Medicines table -->
+                        <h5 class="text-primary mb-2">Services &amp; Medicines</h5>
+                        <table class="table table-sm table-striped table-bordered">
+                            <thead style="background-color:#1F3864; color:#fff;">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product / Service</th>
+                                    <th>Description</th>
+                                    <th class="text-end">Qty</th>
+                                    <th class="text-end">Unit Price</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.line_ids" t-as="line">
+                                    <td t-esc="line_index + 1"/>
+                                    <td t-esc="line.product_id.display_name"/>
+                                    <td t-esc="line.name"/>
+                                    <td class="text-end" t-esc="line.qty"/>
+                                    <td class="text-end">
+                                        <t t-esc="line.price_unit"
+                                           t-options="{'widget': 'float', 'precision': 2}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <t t-esc="line.subtotal"
+                                           t-options="{'widget': 'float', 'precision': 2}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-end fw-bold">Total</td>
+                                    <td class="text-end fw-bold">
+                                        <t t-esc="doc.currency_id.symbol"/>
+                                        <t t-esc="doc.amount_total"
+                                           t-options="{'widget': 'float', 'precision': 2}"/>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <!-- Notes -->
+                        <div t-if="doc.notes" class="mt-3">
+                            <h6 class="text-muted">Notes</h6>
+                            <p t-esc="doc.notes"/>
+                        </div>
+
+                        <!-- Signature block -->
+                        <div class="row mt-5">
+                            <div class="col-5 text-center">
+                                <div style="border-top:1px solid #ccc; padding-top:4px;">
+                                    Patient Signature
+                                </div>
+                            </div>
+                            <div class="col-2"/>
+                            <div class="col-5 text-center">
+                                <div style="border-top:1px solid #ccc; padding-top:4px;">
+                                    Doctor Signature
+                                    <br/>
+                                    <small t-esc="doc.doctor_id.name"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         PATIENT CARD
+    ══════════════════════════════════════════════════════════════════════════ -->
+    <template id="report_hospital_patient_card">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row mb-3">
+                            <div class="col-2" t-if="doc.photo">
+                                <img t-att-src="'data:image/png;base64,' + doc.photo.decode()"
+                                     style="max-width:80px; max-height:80px; border-radius:50%;"
+                                     class="img-fluid"/>
+                            </div>
+                            <div t-attf-class="col-#{10 if doc.photo else 12}">
+                                <h3 class="text-primary mb-0" t-esc="doc.name"/>
+                                <span class="text-muted" t-esc="doc.ref"/>
+                                <t t-if="doc.state">
+                                    <span t-attf-class="badge ms-2 #{
+                                        'bg-success' if doc.state == 'active' else
+                                        'bg-secondary' if doc.state == 'discharged' else
+                                        'bg-warning text-dark'
+                                    }">
+                                        <t t-esc="dict(doc._fields['state'].selection).get(doc.state, doc.state)"/>
+                                    </span>
+                                </t>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <h6 class="text-primary">Personal Details</h6>
+                                <table class="table table-sm table-borderless">
+                                    <tr t-if="doc.dob">
+                                        <td class="fw-bold text-muted" style="width:45%">Date of Birth</td>
+                                        <td>
+                                            <t t-esc="doc.dob"
+                                               t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
+                                            (<t t-esc="doc.age"/> yrs)
+                                        </td>
+                                    </tr>
+                                    <tr t-if="doc.gender">
+                                        <td class="fw-bold text-muted">Gender</td>
+                                        <td t-esc="dict(doc._fields['gender'].selection).get(doc.gender, '')"/>
+                                    </tr>
+                                    <tr t-if="doc.blood_group">
+                                        <td class="fw-bold text-muted">Blood Group</td>
+                                        <td t-esc="dict(doc._fields['blood_group'].selection).get(doc.blood_group, '')"/>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <h6 class="text-primary">Contact</h6>
+                                <table class="table table-sm table-borderless">
+                                    <tr t-if="doc.phone">
+                                        <td class="fw-bold text-muted" style="width:35%">Phone</td>
+                                        <td t-esc="doc.phone"/>
+                                    </tr>
+                                    <tr t-if="doc.email">
+                                        <td class="fw-bold text-muted">Email</td>
+                                        <td t-esc="doc.email"/>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div t-if="doc.tag_ids" class="mt-2">
+                            <h6 class="text-primary">Tags</h6>
+                            <t t-foreach="doc.tag_ids" t-as="tag">
+                                <span class="badge bg-primary me-1" t-esc="tag.name"/>
+                            </t>
+                        </div>
+
+                        <!-- Appointments summary -->
+                        <div t-if="doc.appointment_ids" class="mt-3">
+                            <h6 class="text-primary">Recent Appointments</h6>
+                            <table class="table table-sm table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Date</th>
+                                        <th>Doctor</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.appointment_ids[:5]" t-as="appt">
+                                        <tr>
+                                            <td t-esc="appt.name"/>
+                                            <td>
+                                                <t t-esc="appt.appointment_date"
+                                                   t-options="{'widget': 'datetime', 'format': 'dd/MM/yyyy'}"/>
+                                            </td>
+                                            <td t-esc="appt.doctor_id.name"/>
+                                            <td t-esc="dict(appt._fields['state'].selection).get(appt.state, appt.state)"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

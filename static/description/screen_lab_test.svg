@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560">
+  <defs>
+    <linearGradient id="hdr" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a5276"/>
+      <stop offset="100%" stop-color="#1f618d"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Window -->
+  <rect width="900" height="560" rx="10" fill="#f0f0f0"/>
+  <rect width="900" height="42" rx="10" fill="#2c3e50"/>
+  <rect y="32" width="900" height="10" fill="#2c3e50"/>
+  <circle cx="20" cy="21" r="7" fill="#e74c3c"/>
+  <circle cx="42" cy="21" r="7" fill="#f39c12"/>
+  <circle cx="64" cy="21" r="7" fill="#2ecc71"/>
+  <text x="450" y="26" font-family="Arial" font-size="13" fill="#aaa" text-anchor="middle">Odoo 19 — Lab Test</text>
+
+  <!-- Top nav -->
+  <rect y="42" width="900" height="48" fill="url(#hdr)"/>
+  <text x="24" y="72" font-family="Arial" font-size="15" font-weight="bold" fill="#fff">🏥 Hospital</text>
+  <text x="110" y="72" font-family="Arial" font-size="14" fill="#d6eaf8">Patients</text>
+  <text x="185" y="72" font-family="Arial" font-size="14" fill="#d6eaf8">Appointments</text>
+  <text x="295" y="72" font-family="Arial" font-size="14" font-weight="bold" fill="#ffffff" text-decoration="underline">Lab Tests</text>
+  <text x="375" y="72" font-family="Arial" font-size="14" fill="#d6eaf8">Pharmacy</text>
+
+  <!-- Header bar -->
+  <rect y="90" width="900" height="50" fill="#ffffff"/>
+  <text x="24" y="118" font-family="Arial" font-size="13" fill="#6c757d">Lab Tests  /  </text>
+  <text x="115" y="118" font-family="Arial" font-size="13" fill="#1a5276">LT/2026/0003</text>
+
+  <!-- Status bar -->
+  <rect y="140" width="900" height="46" fill="#1a5276"/>
+  <!-- State buttons -->
+  <rect x="24" y="153" width="130" height="22" rx="4" fill="#adb5bd"/>
+  <text x="89" y="168" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Collect Sample</text>
+  <rect x="164" y="153" width="120" height="22" rx="4" fill="#0dcaf0"/>
+  <text x="224" y="168" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Start Analysis</text>
+  <rect x="294" y="153" width="130" height="22" rx="4" fill="#198754"/>
+  <text x="359" y="168" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Mark Completed ✓</text>
+
+  <!-- Status bar stages -->
+  <text x="580" y="162" font-family="Arial" font-size="11" fill="#adb5bd" text-anchor="middle">Requested</text>
+  <line x1="620" y1="158" x2="640" y2="158" stroke="#adb5bd" stroke-width="1"/>
+  <text x="680" y="162" font-family="Arial" font-size="11" fill="#ffffff" text-anchor="middle">In Progress</text>
+  <line x1="720" y1="158" x2="740" y2="158" stroke="#adb5bd" stroke-width="1"/>
+  <text x="790" y="162" font-family="Arial" font-size="11" fill="#adb5bd" text-anchor="middle">Completed</text>
+  <!-- underline current -->
+  <line x1="650" y1="172" x2="710" y2="172" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Form body -->
+  <rect y="186" width="900" height="374" fill="#ffffff"/>
+
+  <!-- Smart buttons -->
+  <rect x="24" y="198" width="80" height="52" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  <text x="64" y="220" font-family="Arial" font-size="20" text-anchor="middle">🧪</text>
+  <text x="64" y="238" font-family="Arial" font-size="11" fill="#1a5276" text-anchor="middle" font-weight="bold">3</text>
+  <text x="64" y="249" font-family="Arial" font-size="10" fill="#6c757d" text-anchor="middle">Images</text>
+
+  <!-- Title -->
+  <text x="130" y="220" font-family="Arial" font-size="9" fill="#6c757d">REFERENCE</text>
+  <text x="130" y="238" font-family="Arial" font-size="20" font-weight="bold" fill="#212529">LT/2026/0003</text>
+
+  <!-- Left group -->
+  <text x="24" y="278" font-family="Arial" font-size="12" font-weight="bold" fill="#6c757d">TEST INFORMATION</text>
+  <line x1="24" y1="283" x2="430" y2="283" stroke="#dee2e6" stroke-width="1"/>
+  <text x="24"  y="303" font-family="Arial" font-size="12" fill="#6c757d">Test Type</text>
+  <text x="150" y="303" font-family="Arial" font-size="13" fill="#1a5276">Complete Blood Count (CBC)</text>
+  <text x="24"  y="323" font-family="Arial" font-size="12" fill="#6c757d">Category</text>
+  <text x="150" y="323" font-family="Arial" font-size="13" fill="#212529">Blood</text>
+  <text x="24"  y="343" font-family="Arial" font-size="12" fill="#6c757d">Patient</text>
+  <text x="150" y="343" font-family="Arial" font-size="13" fill="#1a5276">Ahmed Hassan</text>
+  <text x="24"  y="363" font-family="Arial" font-size="12" fill="#6c757d">Doctor</text>
+  <text x="150" y="363" font-family="Arial" font-size="13" fill="#212529">Dr. Mohammed Ali</text>
+  <text x="24"  y="383" font-family="Arial" font-size="12" fill="#6c757d">Lab Technician</text>
+  <text x="150" y="383" font-family="Arial" font-size="13" fill="#212529">Tech. Yasser Nour</text>
+
+  <!-- Right group -->
+  <text x="460" y="278" font-family="Arial" font-size="12" font-weight="bold" fill="#6c757d">DATES &amp; SCHEDULE</text>
+  <line x1="460" y1="283" x2="876" y2="283" stroke="#dee2e6" stroke-width="1"/>
+  <text x="460" y="303" font-family="Arial" font-size="12" fill="#6c757d">Request Date</text>
+  <text x="600" y="303" font-family="Arial" font-size="13" fill="#212529">05/08/2026 09:30</text>
+  <text x="460" y="323" font-family="Arial" font-size="12" fill="#6c757d">Result Date</text>
+  <text x="600" y="323" font-family="Arial" font-size="13" fill="#212529">05/08/2026 14:00</text>
+
+  <!-- Tabs -->
+  <rect x="24" y="400" width="900" height="34" fill="#f8f9fa"/>
+  <rect x="24" y="400" width="80" height="34" rx="0" fill="#ffffff"/>
+  <line x1="24" y1="434" x2="104" y2="434" stroke="#1a5276" stroke-width="2"/>
+  <text x="64" y="422" font-family="Arial" font-size="13" font-weight="bold" fill="#1a5276" text-anchor="middle">Results</text>
+  <text x="174" y="422" font-family="Arial" font-size="13" fill="#6c757d" text-anchor="middle">Images &amp; Scans</text>
+  <text x="274" y="422" font-family="Arial" font-size="13" fill="#6c757d" text-anchor="middle">Notes</text>
+
+  <!-- Results tab content -->
+  <text x="24" y="460" font-family="Arial" font-size="12" font-weight="bold" fill="#6c757d">NUMERIC RESULT</text>
+  <text x="24"  y="480" font-family="Arial" font-size="12" fill="#6c757d">Value</text>
+  <text x="150" y="480" font-family="Arial" font-size="13" fill="#212529">4.8</text>
+  <text x="24"  y="500" font-family="Arial" font-size="12" fill="#6c757d">Unit</text>
+  <text x="150" y="500" font-family="Arial" font-size="13" fill="#212529">10⁶/μL</text>
+  <text x="24"  y="520" font-family="Arial" font-size="12" fill="#6c757d">Status</text>
+  <rect x="150" y="508" width="60" height="20" rx="10" fill="#198754"/>
+  <text x="180" y="522" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle">Normal</text>
+  <text x="24"  y="542" font-family="Arial" font-size="12" fill="#6c757d">Normal Range</text>
+  <text x="150" y="542" font-family="Arial" font-size="13" fill="#6c757d">4.5–5.5 × 10⁶/μL</text>
+
+  <!-- Findings -->
+  <text x="460" y="460" font-family="Arial" font-size="12" font-weight="bold" fill="#6c757d">FINDINGS</text>
+  <rect x="460" y="470" width="416" height="80" rx="4" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  <text x="472" y="492" font-family="Arial" font-size="12" fill="#495057">CBC results within normal range. RBC count, haemoglobin</text>
+  <text x="472" y="510" font-family="Arial" font-size="12" fill="#495057">and haematocrit all within expected values for adult male.</text>
+  <text x="472" y="528" font-family="Arial" font-size="12" fill="#495057">No signs of anaemia or polycythaemia.</text>
+</svg>

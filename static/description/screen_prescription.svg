@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500">
+  <defs>
+    <linearGradient id="hdr3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a5276"/>
+      <stop offset="100%" stop-color="#1f618d"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Window -->
+  <rect width="900" height="500" rx="10" fill="#f0f0f0"/>
+  <rect width="900" height="42" rx="10" fill="#2c3e50"/>
+  <rect y="32" width="900" height="10" fill="#2c3e50"/>
+  <circle cx="20" cy="21" r="7" fill="#e74c3c"/>
+  <circle cx="42" cy="21" r="7" fill="#f39c12"/>
+  <circle cx="64" cy="21" r="7" fill="#2ecc71"/>
+  <text x="450" y="26" font-family="Arial" font-size="13" fill="#aaa" text-anchor="middle">Odoo 19 — Prescription</text>
+
+  <!-- Nav -->
+  <rect y="42" width="900" height="48" fill="url(#hdr3)"/>
+  <text x="24" y="72" font-family="Arial" font-size="15" font-weight="bold" fill="#fff">🏥 Hospital</text>
+  <text x="375" y="72" font-family="Arial" font-size="14" font-weight="bold" fill="#ffffff" text-decoration="underline">Pharmacy</text>
+
+  <!-- Header bar -->
+  <rect y="90" width="900" height="46" fill="#ffffff"/>
+  <text x="24" y="116" font-family="Arial" font-size="13" fill="#6c757d">Prescriptions  /  </text>
+  <text x="130" y="116" font-family="Arial" font-size="13" fill="#1a5276">RX/2026/0002</text>
+
+  <!-- Status bar -->
+  <rect y="136" width="900" height="42" fill="#1a5276"/>
+  <rect x="24" y="149" width="80" height="22" rx="4" fill="#0d6efd"/>
+  <text x="64" y="164" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Confirm</text>
+  <rect x="114" y="149" width="120" height="22" rx="4" fill="#198754"/>
+  <text x="174" y="164" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Mark Dispensed</text>
+  <rect x="244" y="149" width="70" height="22" rx="4" fill="#dc3545" opacity="0.7"/>
+  <text x="279" y="164" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Cancel</text>
+  <!-- Stage pills -->
+  <text x="600" y="159" font-family="Arial" font-size="11" fill="#adb5bd" text-anchor="middle">Draft</text>
+  <line x1="630" y1="155" x2="650" y2="155" stroke="#adb5bd" stroke-width="1"/>
+  <text x="690" y="159" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">Confirmed</text>
+  <line x1="730" y1="155" x2="750" y2="155" stroke="#adb5bd" stroke-width="1"/>
+  <text x="800" y="159" font-family="Arial" font-size="11" fill="#adb5bd" text-anchor="middle">Dispensed</text>
+  <line x1="655" y1="168" x2="725" y2="168" stroke="#fff" stroke-width="2"/>
+
+  <!-- Form body -->
+  <rect y="178" width="900" height="322" fill="#ffffff"/>
+
+  <!-- Reference title -->
+  <text x="24" y="202" font-family="Arial" font-size="9" fill="#6c757d">PRESCRIPTION NO.</text>
+  <text x="24" y="222" font-family="Arial" font-size="22" font-weight="bold" fill="#212529">RX/2026/0002</text>
+
+  <!-- Left group -->
+  <text x="24" y="255" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">PRESCRIPTION DETAILS</text>
+  <line x1="24" y1="260" x2="430" y2="260" stroke="#dee2e6" stroke-width="1"/>
+  <text x="24"  y="280" font-family="Arial" font-size="12" fill="#6c757d">Patient</text>
+  <text x="160" y="280" font-family="Arial" font-size="13" fill="#1a5276">Sara Fatima</text>
+  <text x="24"  y="300" font-family="Arial" font-size="12" fill="#6c757d">Appointment</text>
+  <text x="160" y="300" font-family="Arial" font-size="13" fill="#1a5276">HA/2026/0004</text>
+  <text x="24"  y="320" font-family="Arial" font-size="12" fill="#6c757d">Prescribing Doctor</text>
+  <text x="160" y="320" font-family="Arial" font-size="13" fill="#212529">Dr. Mohammed Ali</text>
+
+  <!-- Right group -->
+  <text x="460" y="255" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">DATES</text>
+  <line x1="460" y1="260" x2="876" y2="260" stroke="#dee2e6" stroke-width="1"/>
+  <text x="460" y="280" font-family="Arial" font-size="12" fill="#6c757d">Prescription Date</text>
+  <text x="620" y="280" font-family="Arial" font-size="13" fill="#212529">05/08/2026</text>
+  <text x="460" y="300" font-family="Arial" font-size="12" fill="#6c757d">Valid Until</text>
+  <text x="620" y="300" font-family="Arial" font-size="13" fill="#212529">05/22/2026</text>
+
+  <!-- Tab -->
+  <rect x="24" y="338" width="900" height="32" fill="#f8f9fa"/>
+  <rect x="24" y="338" width="94" height="32" fill="#ffffff"/>
+  <line x1="24" y1="370" x2="118" y2="370" stroke="#1a5276" stroke-width="2"/>
+  <text x="71" y="359" font-family="Arial" font-size="13" font-weight="bold" fill="#1a5276" text-anchor="middle">Medicines</text>
+  <text x="210" y="359" font-family="Arial" font-size="13" fill="#6c757d" text-anchor="middle">Notes</text>
+
+  <!-- Medicine table header -->
+  <rect x="24" y="370" width="852" height="28" fill="#f1f3f4"/>
+  <text x="110"  y="388" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Medicine</text>
+  <text x="250"  y="388" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Dosage</text>
+  <text x="330"  y="388" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Route</text>
+  <text x="420"  y="388" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Frequency</text>
+  <text x="560"  y="388" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Duration</text>
+  <text x="650"  y="388" font-family="Arial" font-size="11" font-weight="bold" fill="#6c757d">Qty</text>
+  <line x1="24" y1="398" x2="876" y2="398" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- Medicine row 1 -->
+  <rect x="24" y="398" width="852" height="36" fill="#ffffff"/>
+  <text x="110"  y="420" font-family="Arial" font-size="12" fill="#1a5276">Amoxicillin 500mg</text>
+  <text x="250"  y="420" font-family="Arial" font-size="12" fill="#212529">500 mg</text>
+  <text x="330"  y="420" font-family="Arial" font-size="12" fill="#212529">Oral</text>
+  <text x="420"  y="420" font-family="Arial" font-size="12" fill="#212529">Three Times Daily (TDS)</text>
+  <text x="560"  y="420" font-family="Arial" font-size="12" fill="#212529">7 days</text>
+  <text x="650"  y="420" font-family="Arial" font-size="12" fill="#212529">21</text>
+  <line x1="24" y1="434" x2="876" y2="434" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- Medicine row 2 -->
+  <rect x="24" y="434" width="852" height="36" fill="#f8f9fa"/>
+  <text x="110"  y="456" font-family="Arial" font-size="12" fill="#1a5276">Ibuprofen 400mg</text>
+  <text x="250"  y="456" font-family="Arial" font-size="12" fill="#212529">400 mg</text>
+  <text x="330"  y="456" font-family="Arial" font-size="12" fill="#212529">Oral</text>
+  <text x="420"  y="456" font-family="Arial" font-size="12" fill="#212529">Twice Daily (BD)</text>
+  <text x="560"  y="456" font-family="Arial" font-size="12" fill="#212529">5 days</text>
+  <text x="650"  y="456" font-family="Arial" font-size="12" fill="#212529">10</text>
+  <line x1="24" y1="470" x2="876" y2="470" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- Add line -->
+  <text x="110" y="490" font-family="Arial" font-size="12" fill="#1a5276">+ Add a line</text>
+</svg>
