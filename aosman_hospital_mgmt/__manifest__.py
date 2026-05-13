@@ -28,7 +28,7 @@ Key Features
 - **Mail & Activities** — Built-in chatter, followers and activity scheduling
   on patients and appointments.
     """,
-    'author': 'Abdulkrim Osman (+966562984106, +966553368212)',
+    'author': 'leapai.ai',
     'website': 'https://leapai.ai/en/',
     'support': 'abdzoro89@gmail.com',
     'maintainer': 'a.osman@bab.com.sa',
