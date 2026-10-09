@@ -1,3 +1,15 @@
+# -*- coding: utf-8 -*-
+# =============================================================================
+#  Hospital Management System
+# -----------------------------------------------------------------------------
+#  Location  : King Abdulaziz Branch Road, Riyadh, Saudi Arabia
+#  Email     : sales@leapai.ai
+#  Phone     : +966 53 553 3627
+#  Website   : https://leapai.ai
+#  Developer : Abdulkaraim Osman — Tech Manager | Backend Engineer | DevOps Engineer
+#              at Bab International Corp For Specialized Services
+#  LinkedIn  : https://www.linkedin.com/in/abdulkaraim-o-385b7a110/
+# =============================================================================
 {
     'name': 'Hospital Management System',
     'version': '19.0.1.0.1',
@@ -29,6 +41,8 @@ Key Features
   on patients and appointments.
     """,
     'author': 'abdzoro89',
+    'maintainer': 'Abdulkaraim Osman',
+    'support': 'sales@leapai.ai',
     'website': 'https://apps.odoo.com',
     'depends': ['base', 'mail', 'account', 'product'],
     'data': [
